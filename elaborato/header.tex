@@ -1,0 +1,90 @@
+% Imports
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{parskip}
+\usepackage[hidelinks, pdfusetitle]{hyperref}
+\usepackage{url}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{titlefoot}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{lmodern}
+\usepackage{ltablex}  % Combina le funzionalità di tabularx con longtable
+\keepXColumns        % Mantiene il comportamento della colonna "X"
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+% Rules
+\setlength{\headheight}{16pt}
+\pagestyle{fancy}
+\let\orighref\href
+\frenchspacing
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+\makeatother
+
+% Env
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{bigtheorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+% Commands
+\renewcommand{\href}[2]{\orighref{#1}{#2\ \faExternalLink}}
+\newcommand{\Conjugate}[1]{\overline{ #1 }}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\ComplexNumbers}{\mathbb{C}}
+\newcommand{\Integers}{\mathbb{Z}}
+\newcommand{\ImaginaryPart}{\operatorname{Im}}
+\newcommand{\ImaginaryNumbers}{\mathbb{I}}
+\newcommand{\NaturalNumbers}{\mathbb{N}}
+\newcommand{\Quaterions}{\mathbb{H}}
+\newcommand{\Rational}{\mathbb{Q}}
+\newcommand{\RationalNumbers}{\mathbb{Q}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\RealNumbers}{\mathbb{R}}
+\newcommand{\RealPart}{\operatorname{Re}}
+\newcommand{\AutomorphismGroup}{\operatorname{Aut}}
+\newcommand{\Automorphisms}{\operatorname{Aut}}
+\newcommand{\Codimension}{\operatorname{codim}}
+\newcommand{\GeneralLinear}{\operatorname{GL}}
+\newcommand{\Homomorphisms}{\operatorname{Hom}}
+\newcommand{\HomomorphismGroup}{\operatorname{Hom}}
+\newcommand{\InnerProduct}[2]{\langle #1 , #2 \rangle}
+\newcommand{\InnerProductLabeled}[3]{{\langle #1 , #2 \rangle}_{ #3 }}
+\newcommand{\Identity}{\mathrm{Id}}
+\newcommand{\Image}{\operatorname{Im}}
+\newcommand{\Kernel}{\ker}
+\newcommand{\ProjectiveSpace}{\mathbb{P}}
+\newcommand{\Projective}{\mathbb{P}}
+\newcommand{\Range}{\operatorname{Range}}
+\newcommand{\Trace}{\operatorname{Tr}}
+\newcommand{\Transpose}[1]{{ #1 }^T}
+\renewcommand{\tabularxcolumn}[1]{>{\RaggedRight\arraybackslash}m{#1}}
+\renewcommand{\arraystretch}{1.2} % Spaziatura verticale nelle righe

@@ -1,0 +1,235 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{header.tex}
+
+
+\title{\texorpdfstring{%
+    \includegraphics[scale=0.3]{./public/unina-logo.jpg}\\ \vspace{0.5cm}%
+    Corso di Laurea in Ingegneria Informatica\\%
+    \vspace{0.5cm}
+    Corso di Ingegneria Del Software\\%
+    Prof. \textbf{Roberto Pietrantuono}\\%
+    a.a. 2024-2025 \\
+    \vspace{0.5cm}
+    Progetto \\
+    \textbf{Comics Store}
+}{Corso di Laurea in Ingegneria Informatica}}
+
+\author{\textbf{Autori}\\ \textbf{Alessio Romano} N46007394 alessio.romano02dev@gmail.com \\ \textbf{Mattia Gifuni} N46007229 mat.gifuni@studenti.unina.it}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Specifiche Informali}
+Si vuole realizzare un sistema software per la gestione di una fumetteria.
+
+Il sistema consente la vendita dei fumetti in negozio, il ritiro in negozio, e la consegna a domicilio.
+
+Per ogni fumetto è specificato il nome della serie (es.: “Diabolik”), l’anno della serie (es: “LXII”, oppure “2010”), il numero del volume, il titolo, il genere (Supereroi, Azione, Fantasy, Manga, …), la casa editrice, una immagine di copertina, una eventuale descrizione e il prezzo. La fumetteria tiene traccia del numero di copie che ha a disposizione per ogni articolo.
+
+Il titolare del negozio si occupa dell’inserimento dei commessi nel sistema, specificando nome, cognome, username e password.
+
+I commessi si occupano della vendita degli articoli presso il punto vendita, accedendo al sistema con le proprie credenziali. Per ogni nuovo arrivo, un commesso acquisisce in negozio l’immagine di copertina con un apposito scanner, inserisce manualmente i dati del fumetto. Gli impiegati devono anche poter modificare il numero di copie a disposizione di un fumetto, all’atto di una vendita in negozio.
+
+I clienti online hanno la possibilità di consultare la vetrina web ed acquistare gli articoli accedendo all’applicazione web della fumetteria, per poi ritirare l’acquisto in negozio, ovvero richiederne la consegna a domicilio. Un cliente online può visualizzare la lista dei prodotti disponibili effettuando ricerche per genere o per serie.
+
+I clienti hanno la possibilità di registrarsi accedendo a promozioni speciali o per ricevere la newsletter con le novità in arrivo. Per registrarsi devono fornire nome, cognome, username, password, e-mail e indirizzo.
+
+Il cliente effettua l’acquisto con carta di credito, selezionando i fumetti dopo una ricerca. I clienti registrati ottengono il 10% di sconto per ogni acquisto e possono richiedere la consegna a domicilio, con un modico costo supplementare che viene sommato al totale dell’ordine immediatamente prima del pagamento.
+
+Prima di accettare un ordine, il sistema controlla l’effettiva disponibilità degli articoli richiesti, ed in caso positivo, al termine del pagamento, invia la conferma per e-mail al cliente.
+
+In caso di ritiro in negozio, la mail di conferma contiene un codice QR (se non registrato, il cliente deve fornire un indirizzo e-mail all’atto dell’acquisto). Al ritiro in negozio, il cliente presenta il codice QR e il commesso lo legge con un apposito lettore, in modo che la vendita risulti completata (il sistema registra la data di ritiro).
+
+Per ogni acquisto online il sistema notifica ai commessi la ricezione del nuovo ordine, contenente la lista dei fumetti acquistati. Per ogni vendita online di cui il cliente abbia richiesto la consegna a domicilio, un commesso predispone il pacco per la consegna e tramite il sistema richiede ad una società di riders il ritiro in negozio e la consegna al cliente. Effettuata la consegna, il sistema dello spedizioniere comunica automaticamente al sistema della fumetteria l’avvenuta consegna dell’ordine. Per una vendita online, il numero delle copie a disposizione viene automaticamente decrementato all’atto dell’acquisto (indipendentemente dalla modalità di ritiro).
+
+Il titolare del negozio predispone una newsletter con i nuovi arrivi, o per comunicare eventi come lapartecipazione a fiere di settore, o per promozioni con sconti speciali, che il sistema invia mensilmente per e-mail ai clienti registrati.
+
+\newpage
+
+\section{Analisi e specifica dei requisiti}
+\subsection{Revisione dei requisiti}
+
+\begin{enumerate}
+
+\item Il sistema deve memorizzare per ogni fumetto i seguenti dati:
+  \begin{enumerate}
+    \item Nome della serie (es. “Diabolik”).
+    \item Anno della serie (in formato romano, es. “LXII”, oppure in formato arabo, es. “2010”).
+    \item Numero del volume.
+    \item Titolo.
+    \item Genere (es. Supereroi, Azione, Fantasy, Manga, …).
+    \item Casa editrice.
+    \item Immagine di copertina.
+    \item Eventuale descrizione.
+    \item Prezzo.
+  \end{enumerate}
+
+\item Il sistema deve tenere traccia del numero di copie a disposizione per ciascun fumetto.
+
+\item Il sistema deve permettere al titolare del negozio di inserire i dati relativi ai commessi.
+
+\item Per ogni commesso il sistema deve memorizzare:
+  \begin{enumerate}
+    \item Nome.
+    \item Cognome.
+    \item Username.
+    \item Password.
+  \end{enumerate}
+
+\item Il sistema deve consentire ai commessi di autenticarsi utilizzando le proprie credenziali.
+
+\item Il sistema deve abilitare i commessi ad acquisire, per ogni nuovo arrivo, l’immagine di copertina di un fumetto mediante uno scanner.
+
+\item Il sistema deve consentire ai commessi di inserire manualmente i dati dei fumetti.
+
+\item Il sistema deve permettere agli impiegati di modificare il numero di copie disponibili di un fumetto in seguito a una vendita in negozio.
+
+\item Il sistema deve supportare la vendita dei fumetti direttamente in negozio, aggiornando il numero delle copie al momento della vendita.
+
+\item Il sistema deve offrire una vetrina web che consenta ai clienti online di consultare l’elenco dei fumetti disponibili.
+
+\item Il sistema deve permettere ai clienti online di effettuare ricerche dei fumetti per genere o per serie.
+
+\item Il sistema deve consentire ai clienti online di selezionare i fumetti e procedere all’acquisto mediante carta di credito.
+
+\item Prima di confermare un ordine online, il sistema deve verificare l’effettiva disponibilità degli articoli selezionati.
+
+\item Al termine del pagamento, se la disponibilità è confermata, il sistema deve inviare al cliente una mail di conferma d’ordine.
+
+\item Il sistema deve notificare ai commessi la ricezione di ogni nuovo ordine online, specificando l’elenco dei fumetti acquistati.
+
+\item Per ogni vendita online, il sistema deve decrementare automaticamente il numero delle copie disponibili dei fumetti acquistati, indipendentemente dalla modalità di ritiro scelta.
+
+\item Il sistema deve consentire al cliente online di scegliere tra due modalità di ricezione dell’ordine: ritiro in negozio oppure consegna a domicilio.
+
+\item In caso di ritiro in negozio:
+  \begin{enumerate}
+    \item Il sistema deve inviare una mail di conferma contenente un codice QR al cliente registrato.
+    \item Se il cliente non è registrato, il sistema deve richiedere l’indirizzo e-mail al momento dell’acquisto per poi inviare il codice QR.
+    \item Al ritiro in negozio, il sistema deve permettere al commesso, tramite un apposito lettore, di verificare il codice QR presentato dal cliente e registrare la data di ritiro.
+  \end{enumerate}
+
+\item In caso di consegna a domicilio:
+  \begin{enumerate}
+    \item Un commesso deve poter predisporre il pacco per la consegna.
+    \item Il sistema deve permettere al commesso di inviare una richiesta a una società di riders per il ritiro in negozio e la consegna al cliente.
+    \item Il sistema deve ricevere automaticamente una conferma dallo spedizioniere al momento dell’avvenuta consegna.
+  \end{enumerate}
+
+\item Il sistema deve consentire ai clienti di registrarsi fornendo: nome, cognome, username, password, e-mail e indirizzo.
+
+\item Il sistema deve consentire ai clienti registrati di accedere all’applicazione web della fumetteria.
+
+\item Il sistema deve applicare uno sconto del 10\% sull’acquisto dei fumetti per i clienti registrati.
+
+\item Il sistema deve permettere al titolare del negozio di predisporre una newsletter contenente:
+  \begin{enumerate}
+    \item I nuovi arrivi.
+    \item Comunicazioni su eventi (es.\ partecipazioni a fiere di settore).
+    \item Promozioni con sconti speciali.
+  \end{enumerate}
+
+\item Il sistema deve inviare mensilmente per e-mail la newsletter ai clienti registrati.
+\end{enumerate}
+
+\newpage
+
+\subsection{Glossario dei Termini}
+
+Di seguito viene riportato un glossario dei termini utilizzati nella revisione dei requisiti
+
+\begin{center}
+\begin{tabularx}{0.95\textwidth}{|X|X|X|}
+\hline
+\textbf{Termine} & \textbf{Descrizione} & \textbf{Sinonimi} \\
+\hline
+\textbf{Commessi} & Lo staff che si occupa della gestione e della vendita & Dipendenti / Impiegati \\
+\hline
+\textbf{Clienti Online} & Qualunque utente, registrato e non, che visita il negozio online & N/A \\
+\hline
+\textbf{Clienti Registrati} & Qualunque cliente, con un account utente registrato sullo store online & N/A \\
+\hline
+\textbf{Clienti non Registrati} & Qualunque cliente, senza un account utente registrato sul negozio online & Guest \\
+\hline
+\textbf{Spedizioniere} & Servizio di spedizione di terze parti & Società di Riders \\
+\hline
+\textbf{Vendita Online} & Qualunque vendita effettuata sul negozio online, a prescindere dalla registrazione dell'utente e dal metodo di consegna & N/A \\
+\hline
+\end{tabularx}
+\end{center}
+
+\section{Classificazione dei requisiti}
+\subsection{Requisiti Funzionali}
+Di seguito viene riportata la tabella contenente i requisiti funzionali relativi alla specifica
+
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{12cm}|c|}
+\hline
+\textbf{ID} & \textbf{Descrizione} & \textbf{Origine} \\
+\hline
+
+RF01 & Il sistema deve memorizzare per ogni fumetto i seguenti dati: nome della serie, anno della serie (in formato romano o arabo), numero del volume, titolo, genere, casa editrice, immagine di copertina, eventuale descrizione e prezzo. & 1 \\
+\hline
+RF02 & Il sistema deve tenere traccia del numero di copie a disposizione per ciascun fumetto. & 2 \\
+\hline
+RF03 & Il sistema deve permettere al titolare del negozio di inserire i dati relativi ai commessi. & 3 \\
+\hline
+RF04 & Per ogni commesso il sistema deve memorizzare: nome, cognome, username e password. & 4 \\
+\hline
+RF05 & Il sistema deve consentire ai commessi di autenticarsi utilizzando le proprie credenziali. & 5 \\
+\hline
+RF06 & Il sistema deve abilitare i commessi ad acquisire, per ogni nuovo arrivo, l’immagine di copertina di un fumetto mediante uno scanner. & 6 \\
+\hline
+RF07 & Il sistema deve consentire ai commessi di inserire manualmente i dati dei fumetti. & 7 \\
+\hline
+RF08 & Il sistema deve permettere agli impiegati di modificare il numero di copie disponibili di un fumetto in seguito a una vendita in negozio. & 8 \\
+\hline
+RF09 & Il sistema deve supportare la vendita dei fumetti direttamente in negozio, aggiornando il numero delle copie al momento della vendita. & 9 \\
+\hline
+RF10 & Il sistema deve offrire una vetrina web che consenta ai clienti online di consultare l’elenco dei fumetti disponibili. & 10 \\
+\hline
+RF11 & Il sistema deve permettere ai clienti online di effettuare ricerche dei fumetti per genere o per serie. & 11 \\
+\hline
+RF12 & Il sistema deve consentire ai clienti online di selezionare i fumetti e procedere all’acquisto mediante carta di credito. & 12 \\
+\hline
+RF13 & Prima di confermare un ordine online, il sistema deve verificare l’effettiva disponibilità degli articoli selezionati. & 13 \\
+\hline
+RF14 & Al termine del pagamento, se la disponibilità è confermata, il sistema deve inviare al cliente una mail di conferma d’ordine. & 14 \\
+\hline
+RF15 & Il sistema deve notificare ai commessi la ricezione di ogni nuovo ordine online, specificando l’elenco dei fumetti acquistati. & 15 \\
+\hline
+RF16 & Per ogni vendita online, il sistema deve decrementare automaticamente il numero delle copie disponibili dei fumetti acquistati, indipendentemente dalla modalità di ritiro scelta. & 16 \\
+\hline
+RF17 & Il sistema deve consentire al cliente online di scegliere tra due modalità di ricezione dell’ordine: ritiro in negozio oppure consegna a domicilio. & 17 \\
+\hline
+RF18.1 & (Ritiro in negozio) Il sistema deve inviare una mail di conferma contenente un codice QR al cliente registrato. & 18(a) \\
+\hline
+RF18.2 & (Ritiro in negozio) Se il cliente non è registrato, il sistema deve richiedere l’indirizzo e-mail al momento dell’acquisto per poi inviare il codice QR. & 18(b) \\
+\hline
+RF18.3 & (Ritiro in negozio) Al ritiro, il sistema deve permettere al commesso, tramite un apposito lettore, di verificare il codice QR presentato dal cliente e registrare la data di ritiro. & 18(c) \\
+\hline
+RF19.1 & (Consegna a domicilio) Un commesso deve poter predisporre il pacco per la consegna. & 19(a) \\
+\hline
+RF19.2 & (Consegna a domicilio) Il sistema deve permettere al commesso di inviare una richiesta a una società di riders per il ritiro in negozio e la consegna al cliente. & 19(b) \\
+\hline
+RF19.3 & (Consegna a domicilio) Il sistema deve ricevere automaticamente una conferma dallo spedizioniere al momento dell’avvenuta consegna. & 19(c) \\
+\hline
+RF20 & Il sistema deve consentire ai clienti di registrarsi fornendo: nome, cognome, username, password, e-mail e indirizzo. & 20 \\
+\hline
+RF21 & Il sistema deve consentire ai clienti registrati di accedere all’applicazione web della fumetteria. & 21 \\
+\hline
+RF22 & Il sistema deve applicare uno sconto del 10\% sull’acquisto dei fumetti per i clienti registrati. & 22 \\
+\hline
+RF23 & Il sistema deve permettere al titolare del negozio di predisporre una newsletter contenente: nuovi arrivi, comunicazioni su eventi e promozioni con sconti speciali. & 23 \\
+\hline
+RF24 & Il sistema deve inviare mensilmente per e-mail la newsletter ai clienti registrati. & 24 \\
+\hline
+
+\end{longtable}
+
+
+\end{document}
