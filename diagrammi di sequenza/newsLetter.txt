@@ -1,0 +1,26 @@
+title NewsLetter
+
+
+Evento Temporale->control.NewsLetter:inviaNewsLetter()
+activate control.NewsLetter
+
+
+control.NewsLetter->model.Utente: get_all_subscribed_users()
+activate model.Utente
+
+database Database
+activate Database
+model.Utente->Database: query()
+Database-->model.Utente: Utenti registrati
+deactivate Database
+
+model.Utente-->control.NewsLetter: Utenti registrati
+deactivate model.Utente
+
+actor Cliente Registrato
+
+loop Per ogni Utente
+control.NewsLetter->Cliente Registrato: send_email(email)
+end
+
+control.NewsLetter-->Evento Temporale:
