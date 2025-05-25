@@ -1,0 +1,31 @@
+title visualizzaFumetti
+
+actor cliente
+activate cliente
+
+cliente->controller.visualizzaFumetti:visualizzaPaginaAcquisto()
+activate controller.visualizzaFumetti
+
+
+model.Fumetti<-controller.visualizzaFumetti:getFumetti()
+activate model.Fumetti
+model.Fumetti-->controller.visualizzaFumetti:listFumetti
+deactivate model.Fumetti
+
+controller.visualizzaFumetti->controller.visualizzaFumetti:pagina = null
+
+loop for each fumetto
+opt fumetto.disponibilta > 0
+controller.visualizzaFumetti->controller.visualizzaFumetti: aggiungiAllaPagina(fumetto, pagina)
+end
+end
+create view.visualizzaFumetti
+controller.visualizzaFumetti->view.visualizzaFumetti: creaViewVisualizzaFumetti(pagina)
+activate view.visualizzaFumetti
+deactivate controller.visualizzaFumetti
+
+view.visualizzaFumetti->view.visualizzaFumetti: creaPagina(pagina)
+
+
+view.visualizzaFumetti-->cliente: paginaFumetti
+deactivate view.visualizzaFumetti
