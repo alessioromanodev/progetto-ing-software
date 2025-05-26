@@ -1,5 +1,5 @@
 package database;
-import entity.Fumetto;
+
 import entity.Newsletter;
 
 import java.sql.Connection;
@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 
 import java.sql.SQLException;
 
-import java.util.Base64;
+
+
 
 import exception.DAOException;
 import exception.DBConnectionException;
@@ -20,14 +21,15 @@ public class NewsletterDAO {
 			
 			Connection conn = DBManager.getConnection();
 
-			String query = "INSERT INTO newsletter VALUES (null,?,?,?);";
+			String query = "INSERT INTO Newsletter VALUES (null,?,?,?);";
 
 			try {
 				PreparedStatement stmt = conn.prepareStatement(query);
 				
                 stmt.setString(1, newsletter.getTitolo());
 				stmt.setString(2, newsletter.getDescrizione());
-				stmt.setString(3,newsletter.getData());
+				stmt.setDate(3, java.sql.Date.valueOf(newsletter.getData()));
+
 				
 
 				stmt.executeUpdate();
