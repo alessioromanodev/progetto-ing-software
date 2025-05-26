@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS fumetti;
+
 CREATE TABLE fumetti (
     id_fumetto INT PRIMARY KEY AUTO_INCREMENT,
     nome_serie VARCHAR(255) NOT NULL,
