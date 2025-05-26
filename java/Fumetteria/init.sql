@@ -12,3 +12,14 @@ CREATE TABLE fumetti (
     prezzo DECIMAL(10, 2),
     quantita_disponibile INT
 );
+
+DROP TABLE IF EXISTS newsletter;
+
+CREATE TABLE newsletter(
+
+id_newsletter INT PRIMARY KEY AUTO_INCREMENT,
+titolo_newsletter VARCHAR(255) NOT NULL,
+descrizione DATETIME 
+
+
+);
