@@ -3,19 +3,31 @@ title NewsLetter
 materialdesignicons F0021 Evento Temporale
 
 
-Evento Temporale -> controller.NewsLetter: inviaNewsLetter()
-activate controller.NewsLetter
+Evento Temporale -> control.NewsLetter: inviaNewsLetter()
+activate control.NewsLetter
 
-controller.NewsLetter -> model.Utente: get_all_subscribed_users()
-activate model.Utente
-model.Utente --> controller.NewsLetter: utenti registrati
-deactivate model.Utente
+control.NewsLetter -> entity.Utente: get_all_subscribed_users()
+activate entity.Utente
+
+entity.Utente->database.UtenteDAO: get_all_subscribed_users()
+activate database.UtenteDAO
+
+database Database
+database.UtenteDAO->Database: query
+activate Database
+Database-->database.UtenteDAO: lista utenti
+deactivate Database
+
+database.UtenteDAO-->entity.Utente:lista utenti
+deactivate database.UtenteDAO
+entity.Utente-->control.NewsLetter:lista utenti
+deactivate entity.Utente
 
 actor ClienteRegistrato
 
 loop per ogni utente
-    controller.NewsLetter -> ClienteRegistrato: send_email(email)
+    control.NewsLetter -> ClienteRegistrato: send_email(email)
 end
 
-controller.NewsLetter --> Evento Temporale: fine invio
-deactivate controller.NewsLetter
+control.NewsLetter --> Evento Temporale: fine invio
+deactivate control.NewsLetter
