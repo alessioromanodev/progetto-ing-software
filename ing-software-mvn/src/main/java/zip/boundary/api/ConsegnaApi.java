@@ -55,10 +55,14 @@ public class ConsegnaApi {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
                 boolean successo = controller.delete(id);
-                res.status(successo ? 204 : 404);
-                return gson.toJson(successo ? "Consegna eliminata" : "Errore eliminazione");
+                if (successo) {
+                    res.status(200);
+                    return gson.toJson("Consegna eliminata con successo");
+                } else {
+                    res.status(404);
+                    return gson.toJson("Consegna non trovata");
+                }
             });
-
         });
     }
 }

@@ -12,6 +12,7 @@
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/boundary/api/OrdineApi.java
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/boundary/api/PagamentoApi.java
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/control/NewsletterController.java
+/home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/utils/lib/Utils.java
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/entity/RigaOrdine.java
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/entity/Fumetto.java
 /home/alessiodev/University/Ing_Software/progetto-ing-software/ing-software-mvn/src/main/java/zip/control/ConsegnaController.java

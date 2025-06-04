@@ -52,26 +52,18 @@ public class NewsletterDAO {
     }
 
     public boolean create(Newsletter n) throws SQLException {
-        String sql = "INSERT INTO newsletter (titolo, descrizione) VALUES (?, ?)";
-        try (Connection conn = DBManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = "INSERT INTO newsletter(titolo, descrizione, data_creazione) VALUES(?, ?, ?)";
+        try (Connection c = DBManager.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setString(1, n.getTitolo());
             ps.setString(2, n.getDescrizione());
+            ps.setTimestamp(3, Timestamp.valueOf(n.getDataCreazione()));
 
-            int rows = ps.executeUpdate();
-
-            if (rows == 1) {
-                try (ResultSet keys = ps.getGeneratedKeys()) {
-                    if (keys.next()) {
-                        n.setId(keys.getInt(1));
-                    }
-                }
-            }
-
-            return rows == 1;
+            return ps.executeUpdate() == 1;
         }
     }
+
 
     public boolean update(Newsletter n) throws SQLException {
         String sql = "UPDATE newsletter SET titolo = ?, descrizione = ? WHERE id_newsletter = ?";

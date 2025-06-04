@@ -15,14 +15,12 @@ public class PagamentoApi {
 
         path("/pagamenti", () -> {
 
-            // GET /pagamenti → restituisce tutti i pagamenti
             get("", (req, res) -> {
                 res.type("application/json");
                 List<Pagamento> lista = controller.findAll();
                 return gson.toJson(lista);
             });
 
-            // GET /pagamenti/:id → restituisce un pagamento specifico
             get("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -35,7 +33,6 @@ public class PagamentoApi {
                 }
             });
 
-            // GET /pagamenti/ordine/:ordineId → restituisce il pagamento per un dato ordine
             get("/ordine/:ordineId", (req, res) -> {
                 res.type("application/json");
                 int ordineId = Integer.parseInt(req.params("ordineId"));
@@ -48,7 +45,6 @@ public class PagamentoApi {
                 }
             });
 
-            // POST /pagamenti → crea un nuovo pagamento
             post("", (req, res) -> {
                 res.type("application/json");
                 Pagamento nuovo = gson.fromJson(req.body(), Pagamento.class);
@@ -57,7 +53,6 @@ public class PagamentoApi {
                 return gson.toJson(successo ? "Pagamento creato" : "Errore creazione pagamento");
             });
 
-            // PUT /pagamenti/:id → aggiorna un pagamento esistente
             put("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -68,7 +63,6 @@ public class PagamentoApi {
                 return gson.toJson(successo ? "Pagamento aggiornato" : "Errore aggiornamento pagamento");
             });
 
-            // DELETE /pagamenti/:id → elimina un pagamento
             delete("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));

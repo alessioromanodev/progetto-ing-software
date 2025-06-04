@@ -15,14 +15,12 @@ public class UtenteApi {
 
         path("/utenti", () -> {
 
-            // GET /utenti → restituisce tutti gli utenti (con ordini caricati)
             get("", (req, res) -> {
                 res.type("application/json");
                 List<Utente> lista = controller.findAll();
                 return gson.toJson(lista);
             });
 
-            // GET /utenti/:id → restituisce un utente specifico
             get("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -35,7 +33,6 @@ public class UtenteApi {
                 }
             });
 
-            // POST /utenti → crea un nuovo utente
             post("", (req, res) -> {
                 res.type("application/json");
                 Utente nuovo = gson.fromJson(req.body(), Utente.class);
@@ -44,7 +41,6 @@ public class UtenteApi {
                 return gson.toJson(successo ? "Utente creato" : "Errore creazione utente");
             });
 
-            // PUT /utenti/:id → aggiorna un utente esistente
             put("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -55,7 +51,6 @@ public class UtenteApi {
                 return gson.toJson(successo ? "Utente aggiornato" : "Errore aggiornamento utente");
             });
 
-            // DELETE /utenti/:id → elimina un utente
             delete("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));

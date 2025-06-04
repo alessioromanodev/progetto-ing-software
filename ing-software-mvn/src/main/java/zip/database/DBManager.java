@@ -1,7 +1,7 @@
 package zip.database;
 
-
 import java.sql.*;
+import zip.utils.lib.*;
 
 public class DBManager {
     private static final String STARTER_URL =
@@ -14,24 +14,25 @@ public class DBManager {
     private static final String PASS = "";
 
     public static Connection getStarterConnection() throws SQLException {
-        
+        Utils.deleteIfExists("fumetteriaZIP.mv.db");
+        Utils.deleteIfExists("fumetteriaZIP.trace.db");
+
         try {
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             throw new SQLException("Driver H2 non trovato", e);
         }
-        
+
         return DriverManager.getConnection(STARTER_URL, USER, PASS);
     }
 
     public static Connection getConnection() throws SQLException {
-        
         try {
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
             throw new SQLException("Driver H2 non trovato", e);
         }
-        
+
         return DriverManager.getConnection(URL, USER, PASS);
     }
 

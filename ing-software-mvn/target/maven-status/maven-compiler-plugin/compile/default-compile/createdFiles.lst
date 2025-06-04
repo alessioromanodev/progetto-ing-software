@@ -11,6 +11,7 @@ zip/boundary/ApiServer.class
 zip/control/UtenteController.class
 zip/control/OrdineController.class
 zip/boundary/api/FumettoApi.class
+zip/utils/lib/Utils.class
 zip/control/FumettoController.class
 zip/database/OrdineDAO.class
 zip/database/DBManager.class
