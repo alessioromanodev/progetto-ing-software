@@ -23,7 +23,6 @@ public class ApiServer {
     public static void main(String[] args) {
         port(8080);
 
-
         try {
             Connection conn = DBManager.getStarterConnection();
             System.out.println(conn);
@@ -38,6 +37,11 @@ public class ApiServer {
             }
         }
 
+        before((req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");      // o metti l’URL del tuo frontend invece di "*"
+            res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+        });
 
         Gson gson = new GsonBuilder()
         .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) ->

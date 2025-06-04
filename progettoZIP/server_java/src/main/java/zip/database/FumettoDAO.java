@@ -23,7 +23,7 @@ public class FumettoDAO {
                 f.setTitolo(rs.getString("titolo"));
                 f.setGenere(rs.getString("genere"));
                 f.setCasaEditrice(rs.getString("casa_editrice"));
-                f.setImmagineCopertina(rs.getBytes("immagine_copertina"));
+                f.setImmagineCopertina(rs.getString("immagine_copertina"));
                 f.setDescrizione(rs.getString("descrizione"));
                 f.setPrezzo(rs.getDouble("prezzo"));
                 f.setQuantitaDisponibile(rs.getInt("quantita_disponibile"));
@@ -45,7 +45,7 @@ public class FumettoDAO {
             ps.setString(5, f.getTitolo());
             ps.setString(6, f.getGenere());
             ps.setString(7, f.getCasaEditrice());
-            ps.setBytes(8, f.getImmagineCopertina());
+            ps.setString(8, f.getImmagineCopertina());
             ps.setString(9, f.getDescrizione());
             ps.setDouble(10, f.getPrezzo());
             ps.setInt(11, f.getQuantitaDisponibile());
@@ -77,7 +77,7 @@ public class FumettoDAO {
                     f.setTitolo(rs.getString("titolo"));
                     f.setGenere(rs.getString("genere"));
                     f.setCasaEditrice(rs.getString("casa_editrice"));
-                    f.setImmagineCopertina(rs.getBytes("immagine_copertina"));
+                    f.setImmagineCopertina(rs.getString("immagine_copertina"));
                     f.setDescrizione(rs.getString("descrizione"));
                     f.setPrezzo(rs.getDouble("prezzo"));
                     f.setQuantitaDisponibile(rs.getInt("quantita_disponibile"));
@@ -100,7 +100,7 @@ public class FumettoDAO {
             ps.setString(5, f.getTitolo());
             ps.setString(6, f.getGenere());
             ps.setString(7, f.getCasaEditrice());
-            ps.setBytes(8, f.getImmagineCopertina());
+            ps.setString(8, f.getImmagineCopertina());
             ps.setString(9, f.getDescrizione());
             ps.setDouble(10, f.getPrezzo());
             ps.setInt(11, f.getQuantitaDisponibile());

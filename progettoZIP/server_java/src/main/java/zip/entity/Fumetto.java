@@ -9,7 +9,7 @@ public class Fumetto {
     private String titolo;
     private String genere;
     private String casaEditrice;
-    private byte[] immagineCopertina;
+    private String immagineCopertina;
     private String descrizione;
     private double prezzo;
     private int quantitaDisponibile;
@@ -38,8 +38,8 @@ public class Fumetto {
     public String getCasaEditrice() { return casaEditrice; }
     public void setCasaEditrice(String casaEditrice) { this.casaEditrice = casaEditrice; }
 
-    public byte[] getImmagineCopertina() { return immagineCopertina; }
-    public void setImmagineCopertina(byte[] immagineCopertina) { this.immagineCopertina = immagineCopertina; }
+    public String getImmagineCopertina() { return immagineCopertina; }
+    public void setImmagineCopertina(String immagineCopertina) { this.immagineCopertina = immagineCopertina; }
 
     public String getDescrizione() { return descrizione; }
     public void setDescrizione(String descrizione) { this.descrizione = descrizione; }

@@ -1,4 +1,4 @@
-2025-06-04 16:06:53 jdbc[4]: null
+2025-06-04 18:05:07 jdbc[4]: null
 org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-200]
 	at org.h2.message.DbException.get(DbException.java:205)
 	at org.h2.message.DbException.get(DbException.java:181)
@@ -10,9 +10,9 @@ org.h2.message.DbException: The connection was not closed by the application and
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
 	at zip.database.DBManager.getConnection(DBManager.java:36)
-	at zip.database.NewsletterDAO.create(NewsletterDAO.java:56)
-	at zip.control.NewsletterController.create(NewsletterController.java:32)
-	at zip.boundary.api.NewsletterApi.lambda$registerRoutes$3(NewsletterApi.java:39)
+	at zip.database.FumettoDAO.findAll(FumettoDAO.java:13)
+	at zip.control.FumettoController.findAll(FumettoController.java:19)
+	at zip.boundary.api.FumettoApi.lambda$registerRoutes$1(FumettoApi.java:18)
 	at spark.RouteImpl$1.handle(RouteImpl.java:72)
 	at spark.http.matching.Routes.execute(Routes.java:61)
 	at spark.http.matching.MatcherFilter.doFilter(MatcherFilter.java:134)
