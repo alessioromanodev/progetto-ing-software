@@ -1,0 +1,53 @@
+title Acquista Fumetto
+actor Actor
+activate Actor
+Actor-> boundaryFumetto: get_all_fumetti()()
+activate boundaryFumetto
+
+
+boundaryFumetto->controllerFumetto: get_all_fumetti()
+activate controllerFumetto
+
+controllerFumetto->entityFumetto:get_all_fumetti()
+activate entityFumetto
+
+entityFumetto->fumettoDao:visualizzaFumetti()
+activate fumettoDao
+
+Database<-fumettoDao:query
+activate Database
+Database-->fumettoDao:lista fumetti[ ]
+deactivate Database
+fumettoDao-->entityFumetto:lista fumetti[ ]
+
+deactivate fumettoDao
+
+
+
+entityFumetto-->controllerFumetto: returnFumetti()
+deactivate entityFumetto
+deactivate entityFumetto
+
+controllerFumetto-->boundaryFumetto:lista fumetti
+deactivate controllerFumetto
+
+boundaryFumetto-->Actor:lista visualizzata
+deactivate Actor
+deactivate boundaryFumetto
+
+
+Actor->boundaryFumetto:Acquista fumetti()
+activate Actor
+activate boundaryFumetto
+
+boundaryFumetto->controllerFumetto:richiestaAcquisto()
+activate controllerFumetto
+controllerFumetto->sistemaPagamento:acquisto()
+activate sistemaPagamento
+sistemaPagamento-->controllerFumetto: statoPagamento()
+deactivate sistemaPagamento
+controllerFumetto-->boundaryFumetto:ordine eff.
+deactivate controllerFumetto
+boundaryFumetto-->Actor: pagamento eff.
+
+deactivate boundaryFumetto
