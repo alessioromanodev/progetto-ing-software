@@ -1,7 +1,7 @@
 title Acquista Fumetto
 actor Actor
 activate Actor
-Actor-> boundaryFumetto: get_all_fumetti()()
+Actor-> boundaryFumetto: visualizza fumetti
 activate boundaryFumetto
 
 
