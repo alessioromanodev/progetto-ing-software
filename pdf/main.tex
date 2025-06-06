@@ -335,6 +335,8 @@ Di seguito viene riportata la tabella contenente i vincoli e requisiti non funzi
   \end{itemize}
 \end{multicols}
 
+
+
 \begin{longtable}{|
     >{\centering\arraybackslash}m{0.08\textwidth}  % UC (centrato verticalmente)
     |>{\raggedright\arraybackslash}m{0.40\textwidth} % Descrizione (allineata in alto)
@@ -489,22 +491,228 @@ Di seguito viene riportata la tabella contenente i vincoli e requisiti non funzi
   & RF23, RF24 \\
 \hline
 \end{longtable}
+
 \subsubsection{Diagramma dei casi d'uso}
+\begin{center}
+  \includegraphics[scale=0.58]{./public/usecasediagram.jpg}
+\end{center}
 
+\section{Stima dei Costi}
+\subsection{Analisi Function Points}
+\subsubsection{Classificazione delle funzioni nelle categorie IFPUG}
+Per stimare i costi di sviluppo del sistema utilizziamo il metodo dei Function Points basato sullo standard IFPUG.
+\begin{itemize}
+  \item \textbf{ILF (Internal Logical Files):}  
+    \begin{itemize}
+      \item Fumetti
+      \item Commessi 
+      \item Clienti registrati 
+      \item Ordini
+    \end{itemize}
 
+  \item \textbf{EIF (External Interface Files):}  
+    \begin{itemize}
+      \item Sistema di spedizioni (riders): dati di ritiro/consegna e notifiche di avvenuta consegna  
+    \end{itemize}
 
+  \item \textbf{EI (External Inputs):}  
+    \begin{itemize}
+      \item Inserimento nuovo fumetto  
+      \item Inserimento nuovo commesso 
+      \item Registrazione nuovo cliente 
+      \item Inserimento ordine online   
+      \item Modifica scorte in negozio
+      \item Richiesta consegna a domicilio 
+    \end{itemize}
 
+  \item \textbf{EO (External Outputs):}  
+    \begin{itemize}
+      \item Visualizzazione vetrina web
+      \item Invio e-mail di conferma ordine con QR code  
+      \item Notifica nuovi ordini ai commessi 
+      \item Invio mensile newsletter
+    \end{itemize}
+  \item \textbf{EQ (External Inquiries):}  
+    \begin{itemize}
+      \item Ricerca fumetti disponibili
+      \item Ricerca ordini attivi
+      \item Ricerca consegne in corso
+      \item Ricerca fumetti per genere     
+      \item Ricerca fumetti per serie 
+    \end{itemize}
+\end{itemize}
+\subsubsection{Calcolo degli UFP}
+Di seguito si riporta la tabella standard per l’assegnazione dei pesi IFPUG\begin{center}
 
+\begin{longtable}{|l|c|c|c|}
+\hline
+\textbf{Categoria} & \textbf{Peso Basso} & \textbf{Peso Medio} & \textbf{Peso Alto} \\
+\hline
+\endfirsthead
 
+EI (External Inputs)           & 3  & 4  & 6  \\
+\hline
+EO (External Outputs)          & 4  & 5  & 7  \\
+\hline
+EQ (External Inquiries)        & 3  & 4  & 6  \\
+\hline
+ILF (Internal Logical Files)   & 7  & 10 & 15 \\
+\hline
+EIF (External Interface Files) & 5  & 7  & 10 \\
+\hline
+\end{longtable}
 
+\end{center}
+Procedendo con il calcolo dei UFP si ha:
 
+\begin{longtable}{|
+    >{\centering\arraybackslash}p{0.15\textwidth}  % Categoria
+    |>{\raggedright\arraybackslash}p{0.50\textwidth} % Funzione
+    |>{\centering\arraybackslash}p{0.10\textwidth}  % Peso
+    |>{\centering\arraybackslash}p{0.10\textwidth}  % UFP
+|}
+\hline
+\textbf{Categoria} & \textbf{Funzione} & \textbf{Peso} & \textbf{UFP} \\
+\hline
+\endfirsthead
 
+\hline
+\textbf{Categoria} & \textbf{Funzione} & \textbf{Peso} & \textbf{UFP} \\
+\hline
+\endhead
 
+ILF  
+  & Fumetti  & 10 & 10 \\
+\hline
+ILF  
+  & Commessi
+  & 10 & 10 \\
+\hline
+ILF  
+  & Clienti registrati  & 10 & 10 \\
+\hline
+ILF  
+  & Ordini  & 10 & 10 \\
+\hline
+EIF  
+  & Sistema di spedizioni (riders): dati di ritiro/consegna e notifiche 
+  & 5 & 5 \\
+\hline
+EI  
+  & Inserimento nuovo fumetto  & 6 & 6 \\
+\hline
+EI  
+  & Inserimento nuovo commesso
+  & 4 & 4 \\
+\hline
+EI  
+  & Registrazione nuovo cliente
+  & 4 & 4 \\
+\hline
+EI  
+  & Inserimento ordine online 
+  & 4 & 4 \\
+\hline
+EI  
+  & Modifica scorte in negozio 
+  & 4 & 4 \\
+\hline
+EI  
+  & Richiesta consegna a domicilio  & 4 & 4 \\
+\hline
+EO  
+  & Visualizzazione vetrina web   & 7 & 7 \\
+\hline
+EO  
+  & Invio e-mail di conferma ordine con QR code 
+  & 4 & 4 \\
+\hline
+EO  
+  & Notifica nuovi ordini ai commessi   & 5 & 5 \\
+\hline
+EO  
+  & Invio mensile newsletter ai clienti registrati 
+  & 4 & 4 \\
+\hline
+EQ  
+  & Ricerca fumetti disponibili 
+  & 4 & 4 \\
+\hline
+EQ  
+  & Ricerca ordini attivi 
+  & 4 & 4 \\
+\hline
+EQ  
+  & Ricerca consegne in corso 
+  & 4 & 4 \\
+\hline
+EQ  
+  & Ricerca fumetti per genere 
+  & 4 & 4 \\
+\hline
+EQ  
+  & Ricerca fumetti per serie
+  & 4 & 4 \\
+\hline
+\multicolumn{3}{|l|}{\textbf{Totale UFP}} & \textbf{111} \\
+\hline
+\end{longtable}
+\subsubsection{Calcolo del VAF}
+Di seguito viene riportata la tabella contentente i fattori correttivi
+\begin{longtable}{|
+    >{\bfseries}p{0.65\textwidth} 
+    |>{\centering\arraybackslash}p{0.25\textwidth}
+|}
+\hline
+\textbf{Caratteristiche generali} & \textbf{Valore} \\
+\hline
+\endfirsthead
 
-
-
-
-
+Comunicazione dati & 3 \\
+\hline
+Distribuzione elaborazione & 0 \\
+\hline
+Prestazioni & 1 \\
+\hline
+Utilizzo intensivo configurazione & 0 \\
+\hline
+Frequenza delle transazioni & 2 \\
+\hline
+Inserimento dati interattivo & 4 \\
+\hline
+Efficienza per l’utente finale & 4 \\
+\hline
+Aggiornamento interattivo & 1 \\
+\hline
+Complessità elaborativa & 1 \\
+\hline
+Riusabilità & 1 \\
+\hline
+Facilità installazione & 0 \\
+\hline
+Facilità gestione operativa & 2 \\
+\hline
+Molteplicità di siti & 2 \\
+\hline
+Facilità di modifica & 2 \\
+\hline
+\end{longtable}
+Il calcolo del Value Adjustment Factor risulta
+\[\text{VAF} = 0,65 + 0,01 \times 23 = 0,88\]
+\subsubsection{Calcolo degli AFP}
+Il calcolo degli Adjusted Function Points risulta
+\[\text{AFP}= \text{UFP} \times \text{VAF} = 111\times 0,88 \approx 98 \text{FP}\]
+\subsection{Effort e Costo}
+Stimiamo i parametri aziendali di \textbf{produttività} e di \textbf{costo orario} come:
+\begin{itemize}
+  \item \textbf{Produttività}: $8 \text{h/FP}$
+  \item \textbf{Costo orario}: $15\text{€/h}$ 
+\end{itemize}
+Da cui si ricava l'Effort e il costo totale:
+\begin{itemize}
+  \item \textbf{Effort Totale} = AFP $\times$ Effort = $781,44$h
+  \item \textbf{Costo Totale} =  Effort Totale $\times$ Costo = $11721,60$€
+\end{itemize}
 
 
 
