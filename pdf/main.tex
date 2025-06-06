@@ -165,71 +165,356 @@ Di seguito viene riportato un glossario dei termini utilizzati nella revisione d
 
 \section{Classificazione dei requisiti}
 \subsection{Requisiti Funzionali}
-Di seguito viene riportata la tabella contenente i requisiti funzionali relativi alla specifica
+Di seguito viene riportata la tabella contenente i requisiti funzionali relativi alla specifica, e la corrispettiva origine dalla revisione dei requisiti.
 
-\begin{longtable}{|c|>{\raggedright\arraybackslash}p{12cm}|c|}
+\begin{longtable}{|
+    >{\centering\arraybackslash}m{0.10\textwidth} |   % colonna ID, centrata verticalmente
+    >{\raggedright\arraybackslash}m{0.70\textwidth} | % colonna Descrizione, allineata a sinistra
+    >{\centering\arraybackslash}m{0.10\textwidth} |   % colonna Origine, centrata verticalmente
+}
 \hline
 \textbf{ID} & \textbf{Descrizione} & \textbf{Origine} \\
 \hline
+\endfirsthead
 
-RF01 & Il sistema deve memorizzare per ogni fumetto i seguenti dati: nome della serie, anno della serie (in formato romano o arabo), numero del volume, titolo, genere, casa editrice, immagine di copertina, eventuale descrizione e prezzo. & 1 \\
 \hline
-RF02 & Il sistema deve tenere traccia del numero di copie a disposizione per ciascun fumetto. & 2 \\
+\textbf{ID} & \textbf{Descrizione} & \textbf{Origine} \\
 \hline
-RF03 & Il sistema deve permettere al titolare del negozio di inserire i dati relativi ai commessi. & 3 \\
-\hline
-RF04 & Per ogni commesso il sistema deve memorizzare: nome, cognome, username e password. & 4 \\
-\hline
-RF05 & Il sistema deve consentire ai commessi di autenticarsi utilizzando le proprie credenziali. & 5 \\
-\hline
-RF06 & Il sistema deve abilitare i commessi ad acquisire, per ogni nuovo arrivo, l’immagine di copertina di un fumetto mediante uno scanner. & 6 \\
-\hline
-RF07 & Il sistema deve consentire ai commessi di inserire manualmente i dati dei fumetti. & 7 \\
-\hline
-RF08 & Il sistema deve permettere agli impiegati di modificare il numero di copie disponibili di un fumetto in seguito a una vendita in negozio. & 8 \\
-\hline
-RF09 & Il sistema deve supportare la vendita dei fumetti direttamente in negozio, aggiornando il numero delle copie al momento della vendita. & 9 \\
-\hline
-RF10 & Il sistema deve offrire una vetrina web che consenta ai clienti online di consultare l’elenco dei fumetti disponibili. & 10 \\
-\hline
-RF11 & Il sistema deve permettere ai clienti online di effettuare ricerche dei fumetti per genere o per serie. & 11 \\
-\hline
-RF12 & Il sistema deve consentire ai clienti online di selezionare i fumetti e procedere all’acquisto mediante carta di credito. & 12 \\
-\hline
-RF13 & Prima di confermare un ordine online, il sistema deve verificare l’effettiva disponibilità degli articoli selezionati. & 13 \\
-\hline
-RF14 & Al termine del pagamento, se la disponibilità è confermata, il sistema deve inviare al cliente una mail di conferma d’ordine. & 14 \\
-\hline
-RF15 & Il sistema deve notificare ai commessi la ricezione di ogni nuovo ordine online, specificando l’elenco dei fumetti acquistati. & 15 \\
-\hline
-RF16 & Per ogni vendita online, il sistema deve decrementare automaticamente il numero delle copie disponibili dei fumetti acquistati, indipendentemente dalla modalità di ritiro scelta. & 16 \\
-\hline
-RF17 & Il sistema deve consentire al cliente online di scegliere tra due modalità di ricezione dell’ordine: ritiro in negozio oppure consegna a domicilio. & 17 \\
-\hline
-RF18.1 & (Ritiro in negozio) Il sistema deve inviare una mail di conferma contenente un codice QR al cliente registrato. & 18(a) \\
-\hline
-RF18.2 & (Ritiro in negozio) Se il cliente non è registrato, il sistema deve richiedere l’indirizzo e-mail al momento dell’acquisto per poi inviare il codice QR. & 18(b) \\
-\hline
-RF18.3 & (Ritiro in negozio) Al ritiro, il sistema deve permettere al commesso, tramite un apposito lettore, di verificare il codice QR presentato dal cliente e registrare la data di ritiro. & 18(c) \\
-\hline
-RF19.1 & (Consegna a domicilio) Un commesso deve poter predisporre il pacco per la consegna. & 19(a) \\
-\hline
-RF19.2 & (Consegna a domicilio) Il sistema deve permettere al commesso di inviare una richiesta a una società di riders per il ritiro in negozio e la consegna al cliente. & 19(b) \\
-\hline
-RF19.3 & (Consegna a domicilio) Il sistema deve ricevere automaticamente una conferma dallo spedizioniere al momento dell’avvenuta consegna. & 19(c) \\
-\hline
-RF20 & Il sistema deve consentire ai clienti di registrarsi fornendo: nome, cognome, username, password, e-mail e indirizzo. & 20 \\
-\hline
-RF21 & Il sistema deve consentire ai clienti registrati di accedere all’applicazione web della fumetteria. & 21 \\
-\hline
-RF22 & Il sistema deve applicare uno sconto del 10\% sull’acquisto dei fumetti per i clienti registrati. & 22 \\
-\hline
-RF23 & Il sistema deve permettere al titolare del negozio di predisporre una newsletter contenente: nuovi arrivi, comunicazioni su eventi e promozioni con sconti speciali. & 23 \\
-\hline
-RF24 & Il sistema deve inviare mensilmente per e-mail la newsletter ai clienti registrati. & 24 \\
-\hline
+\endhead
 
+\textbf{RF01} & Il sistema deve memorizzare per ogni fumetto i seguenti dati: nome della serie,  
+anno della serie (in formato romano o arabo), numero del volume, titolo, genere, casa editrice,  
+immagine di copertina, eventuale descrizione, prezzo e quantità disponibile. & 1,2 \\
+\hline
+\textbf{RF02} & Il sistema deve permettere al titolare del negozio di inserire i dati relativi ai commessi  
+e di memorizzare: nome, cognome, username e password. & 3,4 \\
+\hline
+\textbf{RF03} & Il sistema deve consentire ai commessi di autenticarsi utilizzando le proprie credenziali,  
+deve abilitare i commessi ad acquisire, per ogni nuovo arrivo, l’immagine di copertina di un fumetto  
+mediante uno scanner, e deve permettere ai commessi di inserire manualmente i dati dei fumetti. & 5,6 \\
+\hline
+\textbf{RF04} & Il sistema deve permettere agli impiegati di modificare il numero di copie disponibili di un fumetto  
+in seguito a una vendita in negozio e deve supportare la vendita dei fumetti direttamente in negozio,  
+aggiornando il numero delle copie al momento della vendita. & 8 \\
+\hline
+\textbf{RF05} & Il sistema deve offrire una vetrina web che consenta ai clienti online di consultare  
+l’elenco dei fumetti disponibili e deve permettere ai clienti online di effettuare ricerche dei fumetti  
+per genere o per serie. & 10,11 \\
+\hline
+\textbf{RF06} & Il sistema deve consentire ai clienti online di selezionare i fumetti e procedere  
+all’acquisto mediante carta di credito. & 12 \\
+\hline
+\textbf{RF07} & Prima di confermare un ordine online, il sistema deve verificare l’effettiva disponibilità  
+degli articoli selezionati. & 13 \\
+\hline
+\textbf{RF08} & Al termine del pagamento, se la disponibilità è confermata, il sistema deve inviare  
+al cliente una mail di conferma d’ordine. & 14 \\
+\hline
+\textbf{RF09} & Il sistema deve notificare ai commessi la ricezione di ogni nuovo ordine online,  
+specificando l’elenco dei fumetti acquistati. & 15 \\
+\hline
+\textbf{RF10} & Per ogni vendita online, il sistema deve decrementare automaticamente il numero delle copie  
+disponibili dei fumetti acquistati, indipendentemente dalla modalità di ritiro scelta. & 16 \\
+\hline
+\textbf{RF11} & Il sistema deve consentire al cliente online di scegliere tra due modalità di ricezione  
+dell’ordine: ritiro in negozio oppure consegna a domicilio. & 17 \\
+\hline
+\textbf{RF12} & (Ritiro in negozio) Il sistema deve inviare una mail di conferma contenente un codice QR  
+al cliente registrato; se il cliente non è registrato, il sistema deve richiedere l’indirizzo e-mail  
+al momento dell’acquisto per poi inviare il codice QR. & 18(a,b)\\
+\hline
+\textbf{RF13} & (Ritiro in negozio) Al ritiro, il sistema deve permettere al commesso, tramite un apposito  
+lettore, di verificare il codice QR presentato dal cliente e registrare la data di ritiro. & 18(c) \\
+\hline
+\textbf{RF14} & (Consegna a domicilio) Un commesso deve poter predisporre il pacco per la consegna; il sistema  
+deve permettere al commesso di inviare una richiesta a una società di riders per il ritiro in negozio  
+e la consegna al cliente; inoltre deve ricevere automaticamente una conferma dallo spedizioniere  
+al momento dell’avvenuta consegna. & 19 \\
+\hline
+\textbf{RF15} & Il sistema deve consentire ai clienti di registrarsi fornendo: nome, cognome, username,  
+password, e-mail e indirizzo. & 20\\
+\hline
+\textbf{RF16} & Il sistema deve consentire ai clienti registrati di accedere all’applicazione web  
+della fumetteria, applicando uno sconto del 10\% sull’acquisto dei fumetti per i clienti registrati. & 21,22 \\
+\hline
+\textbf{RF17} & Il sistema deve permettere al titolare del negozio di predisporre una newsletter contenente:  
+nuovi arrivi, comunicazioni su eventi e promozioni con sconti speciali, e deve inviare mensilmente  
+per e-mail la newsletter ai clienti registrati. & 23 \\
+\hline
 \end{longtable}
+
+\subsubsection{Vincoli/Requisiti non funzionali}
+Di seguito viene riportata la tabella contenente i vincoli e requisiti non funzionali derivante dalla specifica.
+\begin{center}
+\begin{tabularx}{1\textwidth}{|>{\hsize=0.13\hsize}X|>{\hsize=0.8\hsize}X|}
+\hline
+\textbf{ID} & \textbf{Requisito} \\
+\hline
+\textbf{V/RNF01} & Il sistema deve garantire la sicurezza degli accessi tramite credenziali per i commessi e per i clienti. \\
+\hline
+\textbf{V/RNF02} & Il sistema deve verificare l’effettiva disponibilità degli articoli prima di accettare un ordine, assicurando l’affidabilità delle transazioni. \\
+\hline
+\textbf{V/RNF03} & Il sistema deve potersi integrare automaticamente con sistemi esterni, come quello dello spedizioniere. \\
+\hline
+\textbf{V/RNF04} & L’interfaccia utente deve essere semplice e intuitiva, adatta sia a clienti online che a commessi in negozio. \\
+\hline
+\textbf{V/RNF05} & Le comunicazioni automatiche come newsletter o conferme devono essere generate e inviate in modo periodico. \\
+\hline
+\textbf{V/RNF06} & Il numero di copie disponibili di ogni fumetto deve essere aggiornato in tempo reale al momento dell’acquisto. \\
+\hline
+\textbf{V/RNF07} & L'applicazione web deve essere accessibile tramite diversi dispositivi e browser, garantendo una buona portabilità. \\
+\hline
+\textbf{V/RNF08} & Il sistema deve strutturare in modo coerente e completo i dati relativi ai fumetti: nome serie, anno serie (formato romano o arabo), numero volume, titolo, genere, casa editrice, immagine copertina, descrizione, prezzo, quantità. \\
+\hline
+\textbf{V/RNF09} & Il sistema deve strutturare in modo coerente e completo i dati relativi ai commessi: nome, cognome, username, password. \\
+\hline
+\textbf{V/RNF10} & Il sistema deve strutturare in modo coerente e completo i dati relativi ai clienti registrati: nome, cognome, username, password, e-mail, indirizzo. \\
+\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+\subsection{Modellazione dei casi d’uso}
+\subsubsection{Attori e casi d’uso}
+\textbf{\textit{Attori Primari:}}
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Titolare
+    \item Commesso
+    \item Cliente Online
+    \item Cliente in Negozio
+  \end{itemize}
+\end{multicols}
+% --- Attori Secondari ---
+\textbf{\textit{Attori Secondari:}}
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Sistema e-mail
+    \item Servizio Riders
+    \item Lettore QR
+    \item Scanner copertine
+  \end{itemize}
+\end{multicols}
+
+% --- Casi d’uso ---
+\textbf{\textit{Casi d’uso:}}
+\begin{itemize}
+  \item UC1: Gestisci Anagrafica Fumetto
+  \item UC2: Gestisci Scorte Fumetto
+  \item UC3: Gestisci Anagrafica Commessi
+  \item UC4: Autentica Commesso
+  \item UC5: Acquisisci Copertina Fumetto
+  \item UC6: Inserisci Dati Fumetto
+  \item UC7: Vendi in Negozio
+  \item UC8: Visualizza Vetrina Web
+  \item UC9: Cerca Fumetto
+  \item UC10: Registrazione Cliente
+  \item UC11: Acquista Online
+  \item UC12: Applica Sconto Cliente Registrato
+  \item UC13: Conferma Pagamento e Invio e-mail
+  \item UC14: Ritiro in Negozio
+  \item UC15: Richiedi Consegna a Domicilio
+  \item UC16: Notifica Nuovo Ordine ai Commessi
+  \item UC17: Gestisci Consegna da Riders
+  \item UC18: Invia Newsletter
+\end{itemize}
+\begin{multicols}{2}
+  \textbf{\textit{Casi d’uso di inclusione:}}
+  \begin{itemize}
+    \item UC5: Acquisisci Copertina Fumetto
+    \item UC6: Inserisci Dati Fumetto
+    \item UC12: Applica Sconto Cliente Registrato
+    \item UC16: Notifica Nuovo Ordine
+  \end{itemize}
+
+  \textbf{\textit{Casi d’uso di estensione:}}
+  \begin{itemize}
+    \item UC14: Ritiro in Negozio      
+    \item UC15: Richiedi Consegna a Domicilio       
+    \item UC17: Gestisci Consegna da Riders     
+  \end{itemize}
+\end{multicols}
+
+\begin{longtable}{|
+    >{\centering\arraybackslash}m{0.08\textwidth}  % UC (centrato verticalmente)
+    |>{\raggedright\arraybackslash}m{0.40\textwidth} % Descrizione (allineata in alto)
+    |>{\centering\arraybackslash}m{0.12\textwidth}  % Attori Primari (centrato verticalmente)
+    |>{\centering\arraybackslash}m{0.12\textwidth}  % Incl./Ext. (centrato verticalmente)
+    |>{\centering\arraybackslash}m{0.10\textwidth}  % RF corrispondenti (centrato verticalmente)
+|}
+\hline
+\textbf{UC} 
+  & \textbf{Descrizione} 
+  & \textbf{Attori Primari} 
+  & \textbf{Incl./Ext.} 
+  & \textbf{RF} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{UC} 
+  & \textbf{Descrizione} 
+  & \textbf{Attori Primari} 
+  & \textbf{Incl./Ext.} 
+  & \textbf{RF} \\
+\hline
+\endhead
+
+\textbf{UC1}  
+  & Gestisci Anagrafica Fumetto:\newline
+    – Memorizza per ogni fumetto: nome serie, anno serie (romano o arabo), numero volume, titolo, genere, casa editrice, immagine copertina, descrizione, prezzo e quantità disponibile.  
+  & Titolare, Commesso 
+  & – 
+  & RF01, RF02 \\
+\hline
+\textbf{UC2}  
+  & Gestisci Scorte Fumetto:\newline
+    – Modifica numero copie a seguito di vendita in negozio.  
+  & Commesso 
+  & – 
+  & RF08, RF09 \\
+\hline
+\textbf{UC3}  
+  & Gestisci Anagrafica Commessi:\newline
+    – Inserimento dati commessi: nome, cognome, username, password.  
+  & Titolare 
+  & – 
+  & RF03, RF04 \\
+\hline
+\textbf{UC4}  
+  & Autentica Commesso:\newline
+    – Login commesso con credenziali.  
+  & Commesso 
+  & – 
+  & RF05 \\
+\hline
+\textbf{UC5}  
+  & Acquisisci Copertina Fumetto:\newline
+    – Scannerizza immagine copertina.  
+  & Commesso 
+  & Include in UC1 
+  & RF06 \\
+\hline
+\textbf{UC6}  
+  & Inserisci Dati Fumetto:\newline
+    – Inserimento manuale dati fumetto.  
+  & Commesso 
+  & Include in UC1 
+  & RF07 \\
+\hline
+\textbf{UC7}  
+  & Vendi in Negozio:\newline
+    – Seleziona fumetti, aggiorna scorte, registra vendita.  
+  & Commesso, Cliente in Negozio 
+  & – 
+  & RF08, RF09 \\
+\hline
+\textbf{UC8}  
+  & Visualizza Vetrina Web:\newline
+    – Mostra elenco fumetti, filtra per genere o serie.  
+  & Cliente Online 
+  & – 
+  & RF10, RF11 \\
+\hline
+\textbf{UC9}  
+  & Cerca Fumetto:\newline
+    – Ricerca per genere o serie.  
+  & Cliente Online 
+  & – 
+  & RF11 \\
+\hline
+\textbf{UC10}  
+  & Registrazione Cliente:\newline
+    – Il cliente fornisce nome, cognome, username, password, e-mail, indirizzo.  
+  & Cliente Online 
+  & – 
+  & RF20 \\
+\hline
+\textbf{UC11}  
+  & Acquista Online:\newline
+    – Seleziona fumetti, aggiunge al carrello, avvia pagamento con carta di credito.\newline
+    – (Include UC12, UC13, UC16)  
+  & Cliente Online 
+  & – 
+  & RF12, RF13, RF14, RF16, RF17 \\
+\hline
+\textbf{UC12}  
+  & Applica Sconto Cliente Registrato:\newline
+    – Verifica sconto 10\% per clienti registrati.  
+  & Cliente Online 
+  & Include in UC11 
+  & RF22 \\
+\hline
+\textbf{UC13}  
+  & Conferma Pagamento e Invio e-mail:\newline
+    – Controlla disponibilità, calcola totale, invia e-mail di conferma con QR se ritiro in negozio.  
+  & Sistema e-mail, Cliente Online 
+  & Include in UC11 
+  & RF13, RF14, RF18.1, RF18.2 \\
+\hline
+\textbf{UC14}  
+  & Ritiro in Negozio:\newline
+    – Il cliente presenta codice QR, il commesso lo legge e registra data di ritiro.  
+  & Cliente in Negozio, Commesso 
+  & Extend UC11 
+  & RF18.3 \\
+\hline
+\textbf{UC15}  
+  & Richiedi Consegna a Domicilio:\newline
+    – Il cliente sceglie consegna a domicilio, il commesso predispone pacco.\newline
+    – Invia richiesta al servizio Riders  
+  & Cliente Online, Commesso 
+  & Extend UC11 
+  & RF17, RF19.1, RF19.2 \\
+\hline
+\textbf{UC16}  
+  & Notifica Nuovo Ordine:\newline
+    – Il sistema notifica ai commessi l’elenco dei fumetti acquistati.  
+  & Sistema e-mail, Commesso 
+  & Include in UC11 
+  & RF15, RF16 \\
+\hline
+\textbf{UC17}  
+  & Gestisci Consegna da Riders:\newline
+    – Riceve conferma di avvenuta consegna dal servizio Riders e aggiorna stato ordine.  
+  & Servizio Riders, Commesso 
+  & Extend UC15 
+  & RF19.3 \\
+\hline
+\textbf{UC18}  
+  & Invia Newsletter:\newline
+    – Predispone e invia mensilmente e-mail ai clienti registrati con nuovi arrivi, eventi, sconti.  
+  & Titolare, Sistema e-mail 
+  & – 
+  & RF23, RF24 \\
+\hline
+\end{longtable}
+\subsubsection{Diagramma dei casi d'uso}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
