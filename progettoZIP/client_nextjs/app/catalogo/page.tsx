@@ -1,11 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { HeroParallax } from "@/components/hero-parallax";
-import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
-import { FocusCards } from "@/components/focus-cards";
-import { reviews } from "@/data/reviews";
-import { Cover } from "@/components/cover";
+import Link from "next/link";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 interface Fumetto {
   id: number;
@@ -28,26 +33,48 @@ export default function Page() {
   useEffect(() => {
     fetch("http://localhost:8080/fumetti")
       .then((res) => res.json())
-      .then((data: Fumetto[]) => {
-        setUserProducts(data);
-      })
+      .then((data: Fumetto[]) => setUserProducts(data))
       .catch((err) => console.error("Errore fetch fumetti:", err));
   }, []);
 
-  const allCardsForHero = userProducts.map((f) => ({
-    title: f.titolo,
-    link: "#",
-    thumbnail: f.immagineCopertina,
-  }));
-
-  const firstSixCards = userProducts.slice(0, 6).map((f) => ({
-    id: f.id,
-    title: f.titolo,
-    src: f.immagineCopertina,
-  }));
-
   return (
-    <div className="space-y-0"> {/* Contenitore principale */}
+    <div className="w-2/3 mx-auto flex flex-wrap justify-center gap-8 p-6">
+      {userProducts.map((fumetto) => (
+        <Card key={fumetto.id} className="w-full sm:w-auto max-w-sm mx-auto">
+          <CardHeader className="flex flex-col items-center space-y-4">
+            <img
+              src={fumetto.immagineCopertina}
+              alt={fumetto.nomeSerie}
+              className="w-full h-48 object-cover rounded-md"
+            />
+            <CardTitle className="text-center">{fumetto.nomeSerie}</CardTitle>
+            <CardDescription className="text-center">
+              {fumetto.descrizione}
+            </CardDescription>
+            <CardAction className="mt-2">
+              <Link
+                href={`/catalogo/${fumetto.id}`}
+                className="hover:underline"
+              >
+                Visualizza
+              </Link>
+            </CardAction>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <p className="text-lg font-semibold text-center">
+              € {fumetto.prezzo.toFixed(2)}
+            </p>
+            <p className="text-sm text-muted-foreground text-center">
+              Disponibili: {fumetto.quantitaDisponibile}
+            </p>
+          </CardContent>
+          <CardFooter className="justify-center">
+            <small className="text-xs text-gray-500 text-center">
+              {fumetto.genere} • Vol. {fumetto.numeroVolume}
+            </small>
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 }

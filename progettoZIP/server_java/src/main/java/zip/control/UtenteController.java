@@ -53,4 +53,16 @@ public class UtenteController {
             return false;
         }
     }
+
+    public Utente authenticate(String email, String password) {
+        try {
+            Utente u = dao.findByEmail(email);
+            if (u != null && u.getPassword().equals(password)) {
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

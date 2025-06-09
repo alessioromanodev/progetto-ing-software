@@ -9,7 +9,6 @@ import java.util.List;
 
 public class UtenteDAO {
 
-    /** Recupera tutti gli utenti (e popola la lista ordini per ciascuno) */
     public List<Utente> findAll() throws SQLException {
         List<Utente> utenti = new ArrayList<>();
         String sql = "SELECT id, nome, cognome, username, role, password, email, indirizzo, registrato FROM utente";
@@ -27,7 +26,6 @@ public class UtenteDAO {
         return utenti;
     }
 
-    /** Recupera un singolo utente per ID (e popola la lista ordini) */
     public Utente findById(int id) throws SQLException {
         String sql = "SELECT id, nome, cognome, username, role, password, email, indirizzo, registrato " +
                      "  FROM utente WHERE id = ?";
@@ -47,7 +45,6 @@ public class UtenteDAO {
         return null;
     }
 
-    /** Inserisce un nuovo utente */
     public boolean create(Utente u) throws SQLException {
         String sql = "INSERT INTO utente " +
                      "(nome, cognome, username, role, password, email, indirizzo, registrato) " +
@@ -77,7 +74,6 @@ public class UtenteDAO {
         }
     }
 
-    /** Aggiorna un utente esistente */
     public boolean update(Utente u) throws SQLException {
         String sql = "UPDATE utente SET " +
                      "nome = ?, cognome = ?, username = ?, role = ?, password = ?, email = ?, indirizzo = ?, registrato = ? " +
@@ -99,7 +95,6 @@ public class UtenteDAO {
         }
     }
 
-    /** Elimina un utente per ID */
     public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM utente WHERE id = ?";
         try (Connection c = DBManager.getConnection();
@@ -110,7 +105,6 @@ public class UtenteDAO {
         }
     }
 
-    /** Restituisce la lista di Ordini associati a un utente, chiamando OrdineDAO.findByUtenteId(...) */
     private List<Ordine> findOrdiniByUtenteId(int idUtente) throws SQLException {
         List<Ordine> ordini = new ArrayList<>();
         String sql = "SELECT id FROM ordine WHERE id_utente = ?";
@@ -133,7 +127,6 @@ public class UtenteDAO {
         return ordini;
     }
 
-    /** Estrae un Utente (senza ordini) da un ResultSet */
     private Utente extractUtente(ResultSet rs) throws SQLException {
         Utente u = new Utente();
         u.setId(rs.getInt("id"));
@@ -146,5 +139,24 @@ public class UtenteDAO {
         u.setIndirizzo(rs.getString("indirizzo"));
         u.setRegistrato(rs.getBoolean("registrato"));
         return u;
+    }
+
+    public Utente findByEmail(String email) throws SQLException {
+        String sql = "SELECT id, nome, cognome, username, role, password, email, indirizzo, registrato " +
+                    "  FROM utente WHERE email = ?";
+        try (Connection c = DBManager.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Estrai utente base
+                    Utente u = extractUtente(rs);
+                    // Carica anche gli ordini associati
+                    u.setOrdini(findOrdiniByUtenteId(u.getId()));
+                    return u;
+                }
+            }
+        }
+        return null;
     }
 }

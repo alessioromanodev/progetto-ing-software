@@ -3,6 +3,7 @@ import {
   Moon,
   SunMedium,
   Twitter,
+  ShoppingCart,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -12,6 +13,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,
+  shoppingCart: ShoppingCart,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path

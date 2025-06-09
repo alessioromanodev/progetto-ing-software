@@ -43,6 +43,18 @@ public class ApiServer {
             res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
         });
 
+        options("/*", (req, res) -> {
+        String requestHeaders = req.headers("Access-Control-Request-Headers");
+        if (requestHeaders != null) {
+            res.header("Access-Control-Allow-Headers", requestHeaders);
+        }
+        String requestMethod = req.headers("Access-Control-Request-Method");
+        if (requestMethod != null) {
+            res.header("Access-Control-Allow-Methods", requestMethod);
+        }
+        return "OK";
+        });
+
         Gson gson = new GsonBuilder()
         .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) ->
             new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
