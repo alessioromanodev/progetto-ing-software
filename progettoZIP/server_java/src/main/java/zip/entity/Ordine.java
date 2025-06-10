@@ -12,8 +12,6 @@ public class Ordine {
     private String qrCode;
 
     private int idUtente;
-    private int idPagamento;
-    private int idConsegna;
 
     private List<RigaOrdine> righeOrdine;
 
@@ -37,12 +35,6 @@ public class Ordine {
 
     public int getIdUtente() { return idUtente; }
     public void setIdUtente(int idUtente) { this.idUtente = idUtente; }
-
-    public int getIdPagamento() { return idPagamento; }
-    public void setIdPagamento(int idPagamento) { this.idPagamento = idPagamento; }
-
-    public int getIdConsegna() { return idConsegna; }
-    public void setIdConsegna(int idConsegna) { this.idConsegna = idConsegna; }
 
     public List<RigaOrdine> getRigheOrdine() { return righeOrdine; }
     public void setRigheOrdine(List<RigaOrdine> righeOrdine) { this.righeOrdine = righeOrdine; }

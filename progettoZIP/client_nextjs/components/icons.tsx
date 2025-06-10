@@ -4,6 +4,7 @@ import {
   SunMedium,
   Twitter,
   ShoppingCart,
+  CheckCircle,
   type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -14,6 +15,7 @@ export const Icons = {
   moon: Moon,
   twitter: Twitter,
   shoppingCart: ShoppingCart,
+  checkCircle: CheckCircle,
   gitHub: (props: LucideProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path

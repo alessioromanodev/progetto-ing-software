@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS ordine (
     stato_ordine VARCHAR(50) NOT NULL,
     qr_code VARCHAR(200),
     id_utente INT NOT NULL,
-    id_pagamento INT,
-    id_consegna INT,
     CONSTRAINT fk_ordine_utente
       FOREIGN KEY (id_utente) REFERENCES utente(id)
 );
@@ -78,14 +76,6 @@ CREATE TABLE IF NOT EXISTS newsletter (
     descrizione CLOB,
     data_creazione TIMESTAMP NOT NULL
 );
-
-ALTER TABLE ordine
-  ADD CONSTRAINT fk_ordine_pagamento
-    FOREIGN KEY (id_pagamento) REFERENCES pagamento(id_pagamento);
-
-ALTER TABLE ordine
-  ADD CONSTRAINT fk_ordine_consegna
-    FOREIGN KEY (id_consegna) REFERENCES consegna(id_consegna);
 
 
 MERGE INTO utente (id, nome, cognome, username, role, password, email, indirizzo, registrato) KEY(id) VALUES
@@ -163,26 +153,18 @@ MERGE INTO newsletter (id_newsletter, titolo, descrizione, data_creazione) KEY(i
   (2, 'Offerte Estive',   'Sconti speciali sui volumi estivi: approfittane ora!',                 '2025-06-02 12:00:00');
 
 MERGE INTO ordine (
-    id, data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, id_utente, id_pagamento, id_consegna
-) KEY(id) VALUES
-  (1, '2025-05-15 14:30:00', 22.48, 'Corriere Espresso', 'In lavorazione',   'QR123XYZ', 1, NULL, NULL),
-  (2, '2025-05-20 10:15:00',  7.80, 'Ritiro in negozio', 'Consegnato',       'QR456ABC', 2, NULL, NULL);
+    id, data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, id_utente) KEY(id) VALUES
+  (1, '2025-05-15 14:30:00', 22.48, 'Corriere Espresso', 'In lavorazione',   'QR123XYZ', 1),
+  (2, '2025-05-20 10:15:00',  7.80, 'Ritiro in negozio', 'Consegnato',       'QR456ABC', 2);
 
 MERGE INTO pagamento (id_pagamento, data_pagamento, importo, metodo, sconto_applicato, id_ordine) KEY(id_pagamento) VALUES
   (1, '2025-05-15 14:35:00', 22.48, 'Carta di Credito', FALSE, 1),
   (2, '2025-05-20 10:20:00',  7.80, 'Contanti',         TRUE,  2);
 
-UPDATE ordine
-SET id_pagamento = (SELECT id_pagamento FROM pagamento WHERE id_ordine = ordine.id)
-WHERE id_pagamento IS NULL;
-
 MERGE INTO consegna (id_consegna, data_richiesta, data_consegna, stato, id_ordine) KEY(id_consegna) VALUES
   (1, '2025-05-15 15:00:00', '2025-05-18 12:00:00', 'Consegnato', 1),
   (2, '2025-05-20 11:00:00', '2025-05-20 11:30:00', 'Consegnato', 2);
 
-UPDATE ordine
-SET id_consegna = (SELECT id_consegna FROM consegna WHERE id_ordine = ordine.id)
-WHERE id_consegna IS NULL;
 
 MERGE INTO riga_ordine (id, id_ordine, id_fumetto, quantita, prezzo_unitario) KEY(id) VALUES
   (1, 1, 1, 1,  9.99),

@@ -14,7 +14,7 @@ public class OrdineDAO {
         List<Ordine> ordini = new ArrayList<>();
         String sqlOrdini =
             "SELECT id, data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, " +
-            "       id_utente, id_pagamento, id_consegna " +
+            "       id_utente " +
             "  FROM ordine";
 
         try (Connection c = DBManager.getConnection();
@@ -34,7 +34,7 @@ public class OrdineDAO {
     public Ordine findById(int id) throws SQLException {
         String sql =
             "SELECT id, data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, " +
-            "       id_utente, id_pagamento, id_consegna " +
+            "       id_utente " +
             "  FROM ordine " +
             " WHERE id = ?";
 
@@ -58,8 +58,8 @@ public class OrdineDAO {
         String sqlOrdine =
             "INSERT INTO ordine (" +
             "    data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, " +
-            "    id_utente, id_pagamento, id_consegna" +
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "    id_utente" +
+            ") VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection c = DBManager.getConnection()) {
             c.setAutoCommit(false);
@@ -70,8 +70,6 @@ public class OrdineDAO {
                 ps.setString(4, ordine.getStatoOrdine());
                 ps.setString(5, ordine.getQrCode());
                 ps.setInt(6, ordine.getIdUtente());
-                ps.setInt(7, ordine.getIdPagamento());
-                ps.setInt(8, ordine.getIdConsegna());
 
                 int affected = ps.executeUpdate();
                 if (affected == 0) {
@@ -110,7 +108,7 @@ public class OrdineDAO {
         String sqlOrdine =
             "UPDATE ordine SET " +
             "    data_ordine = ?, importo_totale = ?, metodo_consegna = ?, stato_ordine = ?, " +
-            "    qr_code = ?, id_utente = ?, id_pagamento = ?, id_consegna = ? " +
+            "    qr_code = ?, id_utente = ? " +
             " WHERE id = ?";
 
         try (Connection c = DBManager.getConnection()) {
@@ -122,9 +120,7 @@ public class OrdineDAO {
                 ps.setString(4, ordine.getStatoOrdine());
                 ps.setString(5, ordine.getQrCode());
                 ps.setInt(6, ordine.getIdUtente());
-                ps.setInt(7, ordine.getIdPagamento());
-                ps.setInt(8, ordine.getIdConsegna());
-                ps.setInt(9, ordine.getId());
+                ps.setInt(7, ordine.getId());
 
                 if (ps.executeUpdate() != 1) {
                     c.rollback();
@@ -236,8 +232,6 @@ public class OrdineDAO {
         o.setStatoOrdine(rs.getString("stato_ordine"));
         o.setQrCode(rs.getString("qr_code"));
         o.setIdUtente(rs.getInt("id_utente"));
-        o.setIdPagamento(rs.getInt("id_pagamento"));
-        o.setIdConsegna(rs.getInt("id_consegna"));
         return o;
     }
 }
