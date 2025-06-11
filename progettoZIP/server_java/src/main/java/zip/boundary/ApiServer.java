@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import zip.database.DBManager;
+import zip.control.NewsletterController;
 import zip.boundary.api.ConsegnaApi;
 import zip.boundary.api.OrdineApi;
 import zip.boundary.api.PagamentoApi;
@@ -24,7 +25,7 @@ public class ApiServer {
         port(8080);
 
         try {
-            Connection conn = DBManager.getStarterConnection();
+            Connection conn = DBManager.getConnection();
             System.out.println(conn);
         } catch (SQLException e) {
             Throwable cause = e.getCause();
@@ -38,7 +39,7 @@ public class ApiServer {
         }
 
         before((req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");      // o metti l’URL del tuo frontend invece di "*"
+            res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
             res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
         });
@@ -63,7 +64,7 @@ public class ApiServer {
             LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         )
         .create();
-    
+
         FumettoApi.registerRoutes(gson);
         OrdineApi.registerRoutes(gson);
         PagamentoApi.registerRoutes(gson);

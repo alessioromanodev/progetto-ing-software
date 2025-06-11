@@ -40,7 +40,6 @@ export default function CarrelloPage() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    // Controllo autenticazione
     const auth = localStorage.getItem("authenticated")
     const userJson = localStorage.getItem("user")
     if (auth !== "true" || !userJson) {
@@ -48,7 +47,6 @@ export default function CarrelloPage() {
       return
     }
 
-    // Carica carrello
     const saved = localStorage.getItem("cart")
     if (saved) {
       setCart(JSON.parse(saved))
@@ -60,7 +58,6 @@ export default function CarrelloPage() {
     0
   )
 
-  // Genera un codice random di 20 caratteri alfanumerici
   const generateQrCode = () => {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -80,7 +77,6 @@ export default function CarrelloPage() {
       const user = userJson ? JSON.parse(userJson) : null
       const idUtente = user?.id ?? 1
 
-      // Prepara il body per la creazione dell'ordine
       const orderBody = {
         dataOrdine: new Date().toISOString().split(".")[0],
         importoTotale: Number(totale.toFixed(2)),
@@ -95,7 +91,6 @@ export default function CarrelloPage() {
         })),
       }
 
-      // Crea l'ordine
       const orderRes = await fetch("http://localhost:8080/ordini", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -104,7 +99,6 @@ export default function CarrelloPage() {
       if (!orderRes.ok) throw new Error("Errore creazione ordine")
       const nuovoOrdine = await orderRes.json()
 
-      // Crea il pagamento
       const paymentBody = {
         dataPagamento: nuovoOrdine.dataOrdine,
         importo: nuovoOrdine.importoTotale,
@@ -119,7 +113,6 @@ export default function CarrelloPage() {
       })
       if (!payRes.ok) throw new Error("Errore creazione pagamento")
 
-      // Crea la consegna
       const consegnaBody = {
         dataRichiesta: nuovoOrdine.dataOrdine,
         dataConsegna: nuovoOrdine.dataOrdine,

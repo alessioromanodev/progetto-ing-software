@@ -17,7 +17,6 @@ public class OrdineApi {
         FumettoController fumettoController = new FumettoController();
 
         path("/ordini", () -> {
-            // CORS preflight per tutte le sotto‐route
             options("/*", (req, res) -> {
                 String reqHeaders = req.headers("Access-Control-Request-Headers");
                 if (reqHeaders != null) res.header("Access-Control-Allow-Headers", reqHeaders);
@@ -28,13 +27,11 @@ public class OrdineApi {
                 return "";
             });
 
-            // GET /ordini
             get("", (req, res) -> {
                 res.type("application/json");
                 return gson.toJson(controller.findAll());
             });
 
-            // GET /ordini/:id
             get("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -47,14 +44,11 @@ public class OrdineApi {
                 }
             });
 
-            // POST /ordini
             post("", "application/json", (req, res) -> {
                 res.type("application/json");
-                // Deserializza l'ordine
                 Ordine nuovo = gson.fromJson(req.body(), Ordine.class);
                 boolean successo = controller.create(nuovo);
                 if (successo) {
-                    // Aggiorna lo stock dei fumetti venduti
                     List<RigaOrdine> righe = nuovo.getRigheOrdine();
                     for (RigaOrdine ro : righe) {
                         Fumetto f = fumettoController.findById(ro.getIdFumetto());
@@ -72,7 +66,6 @@ public class OrdineApi {
                 }
             });
 
-            // PUT /ordini/:id
             put("/:id", "application/json", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -83,7 +76,6 @@ public class OrdineApi {
                 return gson.toJson(successo ? "Ordine aggiornato" : "Errore aggiornamento ordine");
             });
 
-            // DELETE /ordini/:id
             delete("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));

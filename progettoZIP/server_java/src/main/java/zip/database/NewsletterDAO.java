@@ -87,4 +87,29 @@ public class NewsletterDAO {
             return ps.executeUpdate() == 1;
         }
     }
+
+    public Newsletter findLatest() throws SQLException {
+        String sql = "SELECT id_newsletter, titolo, descrizione, data_creazione " +
+                     "FROM newsletter ORDER BY data_creazione DESC LIMIT 1";
+        try (Connection c = DBManager.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return extractNewsletter(rs);
+            }
+        }
+        return null;
+    }
+
+    private Newsletter extractNewsletter(ResultSet rs) throws SQLException {
+        Newsletter n = new Newsletter();
+        n.setId(rs.getInt("id_newsletter"));
+        n.setTitolo(rs.getString("titolo"));
+        Clob clob = rs.getClob("descrizione");
+        if (clob != null) {
+            n.setDescrizione(clob.getSubString(1, (int) clob.length()));
+        }
+        n.setDataCreazione(rs.getTimestamp("data_creazione").toLocalDateTime());
+        return n;
+    }
 }

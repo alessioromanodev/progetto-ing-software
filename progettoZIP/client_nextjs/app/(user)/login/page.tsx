@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
-import { Input } from "@/components/ui/input"
+
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -12,8 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Card, CardContent } from "@/components/ui/card"
-import { useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input"
 
 interface LoginFormValues {
   email: string
@@ -44,7 +45,6 @@ export default function LoginPage() {
 
       if (res.ok) {
         const user = await res.json()
-        // salvo in localStorage lo stato di autenticazione
         localStorage.setItem("authenticated", "true")
         localStorage.setItem("user", JSON.stringify(user))
         router.push("/")
@@ -63,15 +63,10 @@ export default function LoginPage() {
         <CardContent className="p-8">
           <h1 className="text-3xl font-bold mb-8 text-center">Accedi</h1>
 
-          {error && (
-            <p className="mb-4 text-red-600 text-center">{error}</p>
-          )}
+          {error && <p className="mb-4 text-red-600 text-center">{error}</p>}
 
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="email"

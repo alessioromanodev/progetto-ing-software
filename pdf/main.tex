@@ -10,9 +10,9 @@
     Corso di Ingegneria Del Software\\%
     Prof. \textbf{Roberto Pietrantuono}\\%
     a.a. 2024-2025 \\
-    \vspace{0.5cm}
+    \vspace{0.5cm} 
     Progetto \\
-    \textbf{Comics Store}
+    \textbf{Fumetteria ZIP}
 }{Corso di Laurea in Ingegneria Informatica}}
 
 \author{\textbf{Autori}\\ \textbf{Alessio Romano} N46007394 alessio.romano02dev@gmail.com \\ \textbf{Mattia Gifuni} N46007229 mat.gifuni@studenti.unina.it}
@@ -22,6 +22,13 @@
 
 \newpage
 \tableofcontents
+\newpage
+
+\section{Premessa}
+Si noti che durante il seguente elaborato ci concentreremo principalmente su 3 funzionalità, corrispondenti ai casi d'uso: \textbf{UC6, UC8, UC18}. 
+
+Ciò nonostante 13 dei 18 casi d'uso sono comunque presenti nell'implementazione finale, ossia: \textbf{UC1, UC2, UC3, UC4, UC6, UC7, UC8, UC10, UC11, UC12, UC14, UC15, UC18}
+
 \newpage
 
 \section{Specifiche Informali}
@@ -39,7 +46,7 @@ I clienti online hanno la possibilità di consultare la vetrina web ed acquistar
 
 I clienti hanno la possibilità di registrarsi accedendo a promozioni speciali o per ricevere la newsletter con le novità in arrivo. Per registrarsi devono fornire nome, cognome, username, password, e-mail e indirizzo.
 
-Il cliente effettua l’acquisto con carta di credito, selezionando i fumetti dopo una ricerca. I clienti registrati ottengono il 10% di sconto per ogni acquisto e possono richiedere la consegna a domicilio, con un modico costo supplementare che viene sommato al totale dell’ordine immediatamente prima del pagamento.
+Il cliente effettua l’acquisto con carta di credito, selezionando i fumetti dopo una ricerca. I clienti registrati ottengono il 10\% di sconto per ogni acquisto e possono richiedere la consegna a domicilio, con un modico costo supplementare che viene sommato al totale dell’ordine immediatamente prima del pagamento.
 
 Prima di accettare un ordine, il sistema controlla l’effettiva disponibilità degli articoli richiesti, ed in caso positivo, al termine del pagamento, invia la conferma per e-mail al cliente.
 
@@ -496,6 +503,143 @@ Di seguito viene riportata la tabella contenente i vincoli e requisiti non funzi
 \begin{center}
   \includegraphics[scale=0.58]{./public/usecasediagram.jpg}
 \end{center}
+\newpage
+
+\subsubsection{Scenari}
+Si riportano gli scenari corrispondenti ai casi d'uso UC6, UC8, UC18
+
+\begin{tcolorbox}[
+  title=Scenario: Acquisto,
+  coltitle=black,
+  colbacktitle=cyan!10,
+  colback=white,           
+  colframe=gray!60!black,
+  fonttitle=\bfseries,
+  sharp corners=south
+]
+\textbf{Attori primari:} Cliente, Sistema Pagamento
+
+\textbf{Attori secondari:} Società di riders
+
+\textbf{Descrizione:} Il cliente acquista un fumetto dalla libreria di fumetti disponibili.
+
+\vspace{0.5em}
+\textbf{Sequenza principale:}
+\begin{enumerate}
+  \item Visualizzazione dei fumetti disponibili.
+  \item Il cliente crea un ordine.
+  \item Il sistema genera una richiesta di pagamento.
+  \item Il sistema di pagamento elabora la transazione.
+  \item Il sistema richiede il metodo di spedizione.
+  \begin{itemize}
+    \item \textbf{Consegna in negozio:}
+    \begin{enumerate}
+      \item Il sistema genera un QR code.
+      \item Il cliente lo scansiona.
+      \item Il sistema verifica il codice.
+      \item Avviene la consegna.
+    \end{enumerate}
+    \item \textbf{Spedizione:}
+    \begin{enumerate}
+      \item Il sistema contatta una società di riders.
+      \item I riders effettuano la consegna.
+    \end{enumerate}
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Pre-condizione:} N/A
+
+\textbf{Post-condizione:} Il cliente riceve l’ordine.
+
+\textbf{Sequenza alternativa:}
+\begin{itemize}
+  \item QR code errato → Richiesta intervento del titolare.
+  \item Nessuna disponibilità rider → Attendere e notificare il cliente.
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{1em}
+
+\begin{tcolorbox}[
+  title=Scenario: Invio Newsletter,
+  coltitle=black,
+  colbacktitle=cyan!10,
+  colback=white,
+  colframe=gray!60!black,
+  fonttitle=\bfseries,
+  sharp corners=south
+]
+\textbf{Attori primari:} Titolare
+
+\textbf{Attori secondari:} Cliente, Mail Server
+
+\textbf{Descrizione:} Invio newsletter ai clienti.
+
+\vspace{0.5em}
+\textbf{Sequenza principale:}
+\begin{enumerate}
+  \item Il titolare crea un avviso promozionale.
+  \item Il sistema prepara la lista email dei clienti.
+  \item Il sistema invia la newsletter tramite mail server.
+  \item I clienti ricevono la newsletter.
+\end{enumerate}
+
+\textbf{Pre-condizione:} Presenza di promozioni.
+
+\textbf{Post-condizione:} I clienti ricevono la newsletter.
+
+\textbf{Sequenza alternativa:}
+\begin{itemize}
+  \item Mail server non disponibile → Avviso al titolare.
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{1em}
+
+\begin{tcolorbox}[
+  title=Scenario: Aggiunta Fumetto,
+  coltitle=black,
+  colbacktitle=cyan!10,
+  colback=white,
+  colframe=gray!60!black,
+  fonttitle=\bfseries,
+  sharp corners=south
+]
+\textbf{Attori primari:} Dipendente
+
+\textbf{Attori secondari:} Scanner
+
+\textbf{Descrizione:} Aggiunta delle informazioni relative a un fumetto ricevuto.
+
+\vspace{0.5em}
+\textbf{Sequenza principale:}
+\begin{enumerate}
+  \item Ricezione del fumetto.
+  \item Se già registrato:
+  \begin{itemize}
+    \item Il dipendente aggiorna la quantità.
+  \end{itemize}
+  \item Se non registrato:
+  \begin{itemize}
+    \item Il dipendente inserisce i dati.
+    \item Scansiona e carica la copertina.
+  \end{itemize}
+\end{enumerate}
+
+\textbf{Pre-condizione:} Ricezione del fumetto.
+
+\textbf{Post-condizione:} Il fumetto è caricato nel sistema.
+
+\textbf{Sequenza alternativa:} N/A
+\end{tcolorbox}
+\subsection{Modellazione della base dati}
+Di seguito viene riportato il diagramma Entità-Relazione relativo alla base dati del sistema
+\begin{center}
+  \includegraphics[scale=0.42]{./public/erdiagram.png}
+\end{center}
+\newpage
+
+\subsection{Diagramma delle classi}
 
 \section{Stima dei Costi}
 \subsection{Analisi Function Points}
@@ -508,6 +652,7 @@ Per stimare i costi di sviluppo del sistema utilizziamo il metodo dei Function P
       \item Commessi 
       \item Clienti registrati 
       \item Ordini
+      \item Newsletter
     \end{itemize}
 
   \item \textbf{EIF (External Interface Files):}  
@@ -594,6 +739,9 @@ ILF
 ILF  
   & Ordini  & 10 & 10 \\
 \hline
+ILF  
+  & Newsletter  & 10 & 10 \\
+\hline
 EIF  
   & Sistema di spedizioni (riders): dati di ritiro/consegna e notifiche 
   & 5 & 5 \\
@@ -654,7 +802,7 @@ EQ
   & Ricerca fumetti per serie
   & 4 & 4 \\
 \hline
-\multicolumn{3}{|l|}{\textbf{Totale UFP}} & \textbf{111} \\
+\multicolumn{3}{|l|}{\textbf{Totale UFP}} & \textbf{121} \\
 \hline
 \end{longtable}
 \subsubsection{Calcolo del VAF}
@@ -701,7 +849,7 @@ Il calcolo del Value Adjustment Factor risulta
 \[\text{VAF} = 0,65 + 0,01 \times 23 = 0,88\]
 \subsubsection{Calcolo degli AFP}
 Il calcolo degli Adjusted Function Points risulta
-\[\text{AFP}= \text{UFP} \times \text{VAF} = 111\times 0,88 \approx 98 \text{FP}\]
+\[\text{AFP}= \text{UFP} \times \text{VAF} = 121\times 0,88 \approx 106 \text{FP}\]
 \subsection{Effort e Costo}
 Stimiamo i parametri aziendali di \textbf{produttività} e di \textbf{costo orario} come:
 \begin{itemize}
@@ -710,8 +858,8 @@ Stimiamo i parametri aziendali di \textbf{produttività} e di \textbf{costo orar
 \end{itemize}
 Da cui si ricava l'Effort e il costo totale:
 \begin{itemize}
-  \item \textbf{Effort Totale} = AFP $\times$ Effort = $781,44$h
-  \item \textbf{Costo Totale} =  Effort Totale $\times$ Costo = $11721,60$€
+  \item \textbf{Effort Totale} = AFP $\times$ Effort = $848,44$h
+  \item \textbf{Costo Totale} =  Effort Totale $\times$ Costo = $12720,60$€
 \end{itemize}
 
 

@@ -28,7 +28,6 @@ export default function RitiroInNegozioPage() {
     fetch("http://localhost:8080/ordini")
       .then((res) => res.json())
       .then((data: Ordine[]) => {
-        // Filtra solo quelli con metodoConsegna == "Ritiro in negozio"
         const ritiri = data.filter(
           (o) => o.metodoConsegna === "Ritiro in negozio"
         )

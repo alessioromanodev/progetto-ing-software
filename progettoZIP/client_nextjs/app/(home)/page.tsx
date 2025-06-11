@@ -49,28 +49,22 @@ export default function Page() {
 
   return (
     <div className="space-y-0">
-      {" "}
-      {/* Contenitore principale */}
       <HeroParallax products={allCardsForHero} />
       <div className="flex flex-col items-center w-full space-y-24">
-        {/* Sezione “Scopri i Top Sellers!” */}
         <div className="flex flex-col items-center">
           <Cover className="text-8xl font-extrabold">
             Scopri i Top Sellers!
           </Cover>
         </div>
 
-        {/* Griglia di 6 card con i primi fumetti */}
         <div className="w-full">
           <FocusCards cards={firstSixCards} />
         </div>
 
-        {/* Sezione “Cosa dicono di noi” */}
         <div className="flex flex-col items-center mt-48">
           <Cover className="text-8xl font-extrabold">Cosa dicono di noi</Cover>
         </div>
 
-        {/* InfiniteMovingCards con le recensioni */}
         <div className="w-full">
           <InfiniteMovingCards
             items={reviews}

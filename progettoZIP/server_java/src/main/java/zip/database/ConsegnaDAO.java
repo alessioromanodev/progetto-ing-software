@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ConsegnaDAO {
 
-    /** Recupera tutte le consegne */
     public List<Consegna> findAll() throws SQLException {
         List<Consegna> consegne = new ArrayList<>();
         String sql = "SELECT id_consegna, data_richiesta, data_consegna, stato, id_ordine FROM consegna";
@@ -25,7 +24,6 @@ public class ConsegnaDAO {
         return consegne;
     }
 
-    /** Recupera una singola consegna per ID */
     public Consegna findById(int id) throws SQLException {
         String sql = "SELECT id_consegna, data_richiesta, data_consegna, stato, id_ordine " +
                      "  FROM consegna WHERE id_consegna = ?";
@@ -43,7 +41,6 @@ public class ConsegnaDAO {
         return null;
     }
 
-    /** Inserisce una nuova consegna */
     public boolean create(Consegna c) throws SQLException {
         String sql = "INSERT INTO consegna (data_richiesta, data_consegna, stato, id_ordine) " +
                      "VALUES (?, ?, ?, ?)";
@@ -69,7 +66,6 @@ public class ConsegnaDAO {
         }
     }
 
-    /** Aggiorna una consegna esistente */
     public boolean update(Consegna c) throws SQLException {
         String sql = "UPDATE consegna SET data_richiesta = ?, data_consegna = ?, stato = ?, id_ordine = ? " +
                      "WHERE id_consegna = ?";
@@ -87,7 +83,6 @@ public class ConsegnaDAO {
         }
     }
 
-    /** Elimina una consegna per ID */
     public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM consegna WHERE id_consegna = ?";
         try (Connection conn = DBManager.getConnection();
@@ -98,7 +93,6 @@ public class ConsegnaDAO {
         }
     }
 
-    /** Estrae un oggetto Consegna da un ResultSet */
     private Consegna extractConsegna(ResultSet rs) throws SQLException {
         Consegna c = new Consegna();
         c.setIdConsegna(rs.getInt("id_consegna"));

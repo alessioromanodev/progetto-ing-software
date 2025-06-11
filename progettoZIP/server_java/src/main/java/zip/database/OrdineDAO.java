@@ -9,7 +9,6 @@ import java.util.List;
 
 public class OrdineDAO {
 
-    /** Recupera tutti gli ordini (con relative righe) */
     public List<Ordine> findAll() throws SQLException {
         List<Ordine> ordini = new ArrayList<>();
         String sqlOrdini =
@@ -30,7 +29,6 @@ public class OrdineDAO {
         return ordini;
     }
 
-    /** Recupera un ordine per ID (con relative righe) */
     public Ordine findById(int id) throws SQLException {
         String sql =
             "SELECT id, data_ordine, importo_totale, metodo_consegna, stato_ordine, qr_code, " +
@@ -53,7 +51,6 @@ public class OrdineDAO {
         return null;
     }
 
-    /** Inserisce un nuovo ordine (e le sue righe) */
     public boolean create(Ordine ordine) throws SQLException {
         String sqlOrdine =
             "INSERT INTO ordine (" +
@@ -103,7 +100,6 @@ public class OrdineDAO {
         }
     }
 
-    /** Aggiorna un ordine esistente (sostituendo anche tutte le righe) */
     public boolean update(Ordine ordine) throws SQLException {
         String sqlOrdine =
             "UPDATE ordine SET " +
@@ -141,7 +137,6 @@ public class OrdineDAO {
         }
     }
 
-    /** Elimina un ordine e tutte le sue righe */
     public boolean delete(int ordineId) throws SQLException {
         try (Connection c = DBManager.getConnection()) {
             c.setAutoCommit(false);
@@ -163,7 +158,6 @@ public class OrdineDAO {
         }
     }
 
-    /** Estrae le righe di un ordine */
     private List<RigaOrdine> findRigheByOrdineId(int ordineId) throws SQLException {
         List<RigaOrdine> righe = new ArrayList<>();
         String sql =
@@ -190,7 +184,6 @@ public class OrdineDAO {
         return righe;
     }
 
-    /** Inserisce tutte le righe relative a un ordine (usa la stessa connessione) */
     private boolean insertRighe(Connection c, Ordine ordine) throws SQLException {
         if (ordine.getRigheOrdine() == null || ordine.getRigheOrdine().isEmpty()) {
             return true;
@@ -213,7 +206,6 @@ public class OrdineDAO {
         return true;
     }
 
-    /** Cancella tutte le righe legate a un ordine (usa la stessa connessione) */
     private void deleteRigheByOrdine(Connection c, int ordineId) throws SQLException {
         String sql = "DELETE FROM riga_ordine WHERE id_ordine = ?";
         try (PreparedStatement ps = c.prepareStatement(sql)) {
@@ -222,7 +214,6 @@ public class OrdineDAO {
         }
     }
 
-    /** Estrae un Ordine da un ResultSet (senza le righe) */
     private Ordine extractOrdine(ResultSet rs) throws SQLException {
         Ordine o = new Ordine();
         o.setId(rs.getInt("id"));

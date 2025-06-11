@@ -63,7 +63,6 @@ export default function GestisciCommessiPage() {
     },
   })
 
-  // fetch commessi
   useEffect(() => {
     fetch("http://localhost:8080/utenti")
       .then((res) => res.json())
@@ -73,18 +72,15 @@ export default function GestisciCommessiPage() {
       .catch((err) => console.error("Errore fetch utenti:", err))
   }, [])
 
-  // reset form when opening
   useEffect(() => {
     if (selected) form.reset(selected)
   }, [selected, form])
 
-  // open modal
   const onRowClick = (u: Utente) => {
     setSelected(u)
     setIsOpen(true)
   }
 
-  // update handler
   const handleUpdate = async (values: Utente) => {
     const { id, ...payload } = values
     try {

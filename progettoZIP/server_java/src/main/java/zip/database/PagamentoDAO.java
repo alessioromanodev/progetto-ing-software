@@ -8,7 +8,6 @@ import java.util.List;
 
 public class PagamentoDAO {
 
-    /** Recupera tutti i pagamenti */
     public List<Pagamento> findAll() throws SQLException {
         List<Pagamento> pagamenti = new ArrayList<>();
         String sql = "SELECT id_pagamento, data_pagamento, importo, metodo, sconto_applicato, id_ordine FROM pagamento";
@@ -24,7 +23,6 @@ public class PagamentoDAO {
         return pagamenti;
     }
 
-    /** Recupera un pagamento per ID */
     public Pagamento findById(int id) throws SQLException {
         String sql = "SELECT id_pagamento, data_pagamento, importo, metodo, sconto_applicato, id_ordine " +
                      "FROM pagamento WHERE id_pagamento = ?";
@@ -42,7 +40,6 @@ public class PagamentoDAO {
         return null;
     }
 
-    /** Recupera il pagamento associato a un ordine specifico */
     public Pagamento findByOrdineId(int idOrdine) throws SQLException {
         String sql = "SELECT id_pagamento, data_pagamento, importo, metodo, sconto_applicato, id_ordine " +
                      "FROM pagamento WHERE id_ordine = ?";
@@ -60,7 +57,6 @@ public class PagamentoDAO {
         return null;
     }
 
-    /** Crea un nuovo pagamento */
     public boolean create(Pagamento p) throws SQLException {
         String sql = "INSERT INTO pagamento (data_pagamento, importo, metodo, sconto_applicato, id_ordine) " +
                      "VALUES (?, ?, ?, ?, ?)";
@@ -87,7 +83,6 @@ public class PagamentoDAO {
         }
     }
 
-    /** Aggiorna un pagamento esistente */
     public boolean update(Pagamento p) throws SQLException {
         String sql = "UPDATE pagamento SET data_pagamento = ?, importo = ?, metodo = ?, sconto_applicato = ?, id_ordine = ? " +
                      "WHERE id_pagamento = ?";
@@ -106,7 +101,6 @@ public class PagamentoDAO {
         }
     }
 
-    /** Elimina un pagamento per ID */
     public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM pagamento WHERE id_pagamento = ?";
 
@@ -118,7 +112,6 @@ public class PagamentoDAO {
         }
     }
 
-    /** Estrae un oggetto Pagamento da un ResultSet */
     private Pagamento extractPagamento(ResultSet rs) throws SQLException {
         Pagamento p = new Pagamento();
         p.setIdPagamento(rs.getInt("id_pagamento"));

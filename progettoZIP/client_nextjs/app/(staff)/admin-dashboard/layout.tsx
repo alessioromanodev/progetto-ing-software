@@ -15,7 +15,6 @@ export default function AdminLayout({ children }: Props) {
     const auth = localStorage.getItem("authenticated")
     const userJson = localStorage.getItem("user")
 
-    // Se non loggato, vai al login
     if (auth !== "true" || !userJson) {
       router.replace("/login")
       return
@@ -36,7 +35,6 @@ export default function AdminLayout({ children }: Props) {
     const roleRaw = typeof user.role === "string" ? user.role : ""
     const role = roleRaw.trim().toLowerCase()
 
-    // Permesso solo per amministratore
     if (role !== "amministratore") {
       router.replace("/")
       return
@@ -45,7 +43,6 @@ export default function AdminLayout({ children }: Props) {
     setAuthorized(true)
   }, [router])
 
-  // Fino al check, non renderizzare nulla
   if (authorized !== true) {
     return null
   }

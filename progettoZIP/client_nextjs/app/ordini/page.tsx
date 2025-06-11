@@ -1,18 +1,19 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
   Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
   TableHeader,
   TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableCaption,
 } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
 
 interface RigheOrdine {
   id: number
@@ -38,7 +39,6 @@ export default function OrdiniPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Controllo autenticazione
     const auth = localStorage.getItem("authenticated")
     const userJson = localStorage.getItem("user")
     if (auth !== "true" || !userJson) {
@@ -47,21 +47,19 @@ export default function OrdiniPage() {
     }
 
     const user = JSON.parse(userJson)
-    // 1. Recupera elenco ordini dell'utente
     fetch(`http://localhost:8080/ordini?userId=${user.id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Errore nel recupero ordini")
         return res.json()
       })
       .then((list: { id: number }[]) => {
-        // 2. Per ciascun ordine, recupera i dettagli completi
         return Promise.all(
           list.map((o) =>
-            fetch(`http://localhost:8080/ordini/${o.id}`)
-              .then((res) => {
-                if (!res.ok) throw new Error(`Errore nel recupero dettaglio ordine ${o.id}`)
-                return res.json()
-              })
+            fetch(`http://localhost:8080/ordini/${o.id}`).then((res) => {
+              if (!res.ok)
+                throw new Error(`Errore nel recupero dettaglio ordine ${o.id}`)
+              return res.json()
+            })
           )
         )
       })
@@ -89,8 +87,12 @@ export default function OrdiniPage() {
 
           {orders.length === 0 ? (
             <div className="text-center space-y-4">
-              <p className="text-lg font-medium">Ops! Non hai ancora ordini, guarda il nostro catalogo.</p>
-              <Button onClick={() => router.push("/catalogo")}>Vai al catalogo</Button>
+              <p className="text-lg font-medium">
+                Ops! Non hai ancora ordini, guarda il nostro catalogo.
+              </p>
+              <Button onClick={() => router.push("/catalogo")}>
+                Vai al catalogo
+              </Button>
             </div>
           ) : (
             <Table>
@@ -109,7 +111,9 @@ export default function OrdiniPage() {
                 {orders.map((o) => (
                   <TableRow key={o.id}>
                     <TableCell>{o.id}</TableCell>
-                    <TableCell>{new Date(o.dataOrdine).toLocaleString()}</TableCell>
+                    <TableCell>
+                      {new Date(o.dataOrdine).toLocaleString()}
+                    </TableCell>
                     <TableCell>€{o.importoTotale.toFixed(2)}</TableCell>
                     <TableCell>{o.statoOrdine}</TableCell>
                     <TableCell>{o.metodoConsegna}</TableCell>

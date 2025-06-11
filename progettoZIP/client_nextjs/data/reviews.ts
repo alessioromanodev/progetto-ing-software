@@ -1,5 +1,3 @@
-// src/data/reviews.ts
-
 export const reviews = [
   {
     quote: "Questa fumetteria online ha superato ogni aspettativa: consegna velocissima e fumetti perfetti!",

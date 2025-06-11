@@ -11,7 +11,6 @@ export default function AdminDashboardPage() {
     <main className="min-h-screen w-2/3 mx-auto bg-background p-8">
       <h1 className="text-4xl font-bold text-center mb-12">Strumenti Admin</h1>
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
-        {/* Gestisci Commessi */}
         <Card className="flex-1">
           <CardHeader>
             <CardTitle>Gestisci Commessi</CardTitle>
@@ -26,7 +25,6 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Crea Newsletter */}
         <Card className="flex-1">
           <CardHeader>
             <CardTitle>Crea Newsletter</CardTitle>

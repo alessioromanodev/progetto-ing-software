@@ -11,7 +11,6 @@ export default function StaffDashboardPage() {
     <main className="min-h-screen w-2/3 mx-auto bg-background p-8">
       <h1 className="text-4xl font-bold text-center mb-12">Staff Dashboard</h1>
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
-        {/* Registra Vendita */}
         <Card className="flex-1">
           <CardHeader>
             <CardTitle>Registra Vendita</CardTitle>
@@ -26,7 +25,6 @@ export default function StaffDashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Gestisci Fumetti */}
         <Card className="flex-1">
           <CardHeader>
             <CardTitle>Gestisci Fumetti</CardTitle>
@@ -41,7 +39,6 @@ export default function StaffDashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Ritiro in negozio */}
         <Card className="flex-1">
           <CardHeader>
             <CardTitle>Ritiro in negozio</CardTitle>
