@@ -3,36 +3,38 @@ package zip.boundary.api;
 import static spark.Spark.*;
 import com.google.gson.Gson;
 import zip.control.OrdineController;
+import zip.control.FumettoController;
 import zip.entity.Ordine;
+import zip.entity.RigaOrdine;
+import zip.entity.Fumetto;
+
+import java.util.List;
 
 public class OrdineApi {
 
     public static void registerRoutes(Gson gson) {
         OrdineController controller = new OrdineController();
+        FumettoController fumettoController = new FumettoController();
 
         path("/ordini", () -> {
-            // CORS preflight handler
-            options("", (req, res) -> {
+            // CORS preflight per tutte le sotto‐route
+            options("/*", (req, res) -> {
                 String reqHeaders = req.headers("Access-Control-Request-Headers");
-                if (reqHeaders != null) {
-                    res.header("Access-Control-Allow-Headers", reqHeaders);
-                }
+                if (reqHeaders != null) res.header("Access-Control-Allow-Headers", reqHeaders);
                 String reqMethods = req.headers("Access-Control-Request-Method");
-                if (reqMethods != null) {
-                    res.header("Access-Control-Allow-Methods", reqMethods);
-                }
-                // origin header set globally
+                if (reqMethods != null) res.header("Access-Control-Allow-Methods", reqMethods);
+                res.header("Access-Control-Allow-Origin", "*");
                 res.status(200);
                 return "";
             });
 
-            // GET /ordini - lista tutti gli ordini
+            // GET /ordini
             get("", (req, res) -> {
                 res.type("application/json");
                 return gson.toJson(controller.findAll());
             });
 
-            // GET /ordini/:id - trova ordine per ID
+            // GET /ordini/:id
             get("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -45,14 +47,24 @@ public class OrdineApi {
                 }
             });
 
-            // POST /ordini - crea un nuovo ordine e lo restituisce
+            // POST /ordini
             post("", "application/json", (req, res) -> {
                 res.type("application/json");
+                // Deserializza l'ordine
                 Ordine nuovo = gson.fromJson(req.body(), Ordine.class);
                 boolean successo = controller.create(nuovo);
                 if (successo) {
+                    // Aggiorna lo stock dei fumetti venduti
+                    List<RigaOrdine> righe = nuovo.getRigheOrdine();
+                    for (RigaOrdine ro : righe) {
+                        Fumetto f = fumettoController.findById(ro.getIdFumetto());
+                        if (f != null) {
+                            int newQty = f.getQuantitaDisponibile() - ro.getQuantita();
+                            f.setQuantitaDisponibile(Math.max(newQty, 0));
+                            fumettoController.update(f);
+                        }
+                    }
                     res.status(201);
-                    // controller.create() popola l'ID su "nuovo"
                     return gson.toJson(nuovo);
                 } else {
                     res.status(400);
@@ -60,7 +72,7 @@ public class OrdineApi {
                 }
             });
 
-            // PUT /ordini/:id - aggiorna ordine esistente
+            // PUT /ordini/:id
             put("/:id", "application/json", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -71,7 +83,7 @@ public class OrdineApi {
                 return gson.toJson(successo ? "Ordine aggiornato" : "Errore aggiornamento ordine");
             });
 
-            // DELETE /ordini/:id - elimina un ordine
+            // DELETE /ordini/:id
             delete("/:id", (req, res) -> {
                 res.type("application/json");
                 int id = Integer.parseInt(req.params("id"));
@@ -84,6 +96,7 @@ public class OrdineApi {
                     return gson.toJson("Errore: ordine non trovato");
                 }
             });
+
         });
     }
 }

@@ -1,44 +1,45 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react"
+import Link from "next/link"
+
 import {
   Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
   CardAction,
   CardContent,
+  CardDescription,
   CardFooter,
-} from "@/components/ui/card";
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 interface Fumetto {
-  id: number;
-  nomeSerie: string;
-  annoSerie: string;
-  autore: string;
-  numeroVolume: number;
-  titolo: string;
-  genere: string;
-  casaEditrice: string;
-  immagineCopertina: string;
-  descrizione: string;
-  prezzo: number;
-  quantitaDisponibile: number;
+  id: number
+  nomeSerie: string
+  annoSerie: string
+  autore: string
+  numeroVolume: number
+  titolo: string
+  genere: string
+  casaEditrice: string
+  immagineCopertina: string
+  descrizione: string
+  prezzo: number
+  quantitaDisponibile: number
 }
 
 export default function Page() {
-  const [userProducts, setUserProducts] = useState<Fumetto[]>([]);
+  const [userProducts, setUserProducts] = useState<Fumetto[]>([])
 
   useEffect(() => {
     fetch("http://localhost:8080/fumetti")
       .then((res) => res.json())
       .then((data: Fumetto[]) => setUserProducts(data))
-      .catch((err) => console.error("Errore fetch fumetti:", err));
-  }, []);
+      .catch((err) => console.error("Errore fetch fumetti:", err))
+  }, [])
 
   return (
-    <div className="w-2/3 mx-auto flex flex-wrap justify-center gap-8 p-6">
+    <div className="w-[80%] mx-auto flex flex-wrap justify-center gap-8 p-6">
       {userProducts.map((fumetto) => (
         <Card key={fumetto.id} className="w-full sm:w-auto max-w-sm mx-auto">
           <CardHeader className="flex flex-col items-center space-y-4">
@@ -76,5 +77,5 @@ export default function Page() {
         </Card>
       ))}
     </div>
-  );
+  )
 }

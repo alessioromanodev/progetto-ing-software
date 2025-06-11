@@ -1,63 +1,62 @@
-"use client";
-import React from "react";
+"use client"
+
+import React from "react"
 import {
+  MotionValue,
   motion,
   useScroll,
-  useTransform,
   useSpring,
-  MotionValue,
-} from "motion/react";
-
-
+  useTransform,
+} from "motion/react"
 
 export const HeroParallax = ({
   products,
 }: {
   products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  }[];
+    title: string
+    link: string
+    thumbnail: string
+  }[]
 }) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
-  const ref = React.useRef(null);
+  const firstRow = products.slice(0, 5)
+  const secondRow = products.slice(5, 10)
+  const thirdRow = products.slice(10, 15)
+  const ref = React.useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
-  });
+  })
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+  const springConfig = { stiffness: 300, damping: 30, bounce: 100 }
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
     springConfig
-  );
+  )
   const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
     springConfig
-  );
+  )
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
     springConfig
-  );
+  )
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
     springConfig
-  );
+  )
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [20, 0]),
     springConfig
-  );
+  )
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig
-  );
+  )
   return (
     <div
       ref={ref}
-      className="h-[220vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[220vh] py-60 mb-60 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -98,33 +97,37 @@ export const HeroParallax = ({
         </motion.div>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
 export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        Fumetteria<br /> ZIP
+        Fumetteria
+        <br /> ZIP
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        Visitate il nostro portale e scoprite un mondo di avventure a fumetti a portata di clic: una selezione infinita di albi, edizioni da collezione e manga imperdibili.
-        Il nostro team di esperti vi guiderà con consigli personalizzati e anteprime esclusive, direttamente nella vostra casella email.
+        Visitate il nostro portale e scoprite un mondo di avventure a fumetti a
+        portata di clic: una selezione infinita di albi, edizioni da collezione
+        e manga imperdibili. Il nostro team di esperti vi guiderà con consigli
+        personalizzati e anteprime esclusive, direttamente nella vostra casella
+        email.
       </p>
     </div>
-  );
-};
+  )
+}
 
 export const ProductCard = ({
   product,
   translate,
 }: {
   product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  };
-  translate: MotionValue<number>;
+    title: string
+    link: string
+    thumbnail: string
+  }
+  translate: MotionValue<number>
 }) => {
   return (
     <motion.div
@@ -137,10 +140,7 @@ export const ProductCard = ({
       key={product.title}
       className="group/product h-96 w-[30rem] relative shrink-0"
     >
-      <a
-        href={product.link}
-        className="block group-hover/product:shadow-2xl "
-      >
+      <a href={product.link} className="block group-hover/product:shadow-2xl ">
         <img
           src={product.thumbnail}
           height="600"
@@ -154,5 +154,5 @@ export const ProductCard = ({
         {product.title}
       </h2>
     </motion.div>
-  );
-};
+  )
+}

@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS newsletter (
 MERGE INTO utente (id, nome, cognome, username, role, password, email, indirizzo, registrato) KEY(id) VALUES
   (1, 'Luca',   'Rossi',   'luca.rossi',    'cliente',       'pass123',    'luca.rossi@example.com',   'Via Roma 10, Milano',    TRUE),
   (2, 'Giulia', 'Bianchi', 'giulia.bianchi','cliente',       'pwd456',     'giulia.bianchi@example.com','Corso Venezia 5, Roma',   TRUE),
+  (2, 'Giulia', 'Bianchi', 'giulia.bianchi','commesso',       'pwd456',     'giulia.bianchi@peppe.com','Corso Venezia 5, Roma',   TRUE),
   (3, 'Marco',  'Verdi',   'marco.verdi',   'amministratore','adm!n789',   'marco.verdi@example.com',  'Piazza Dante 2, Napoli', TRUE);
 
 MERGE INTO fumetto (

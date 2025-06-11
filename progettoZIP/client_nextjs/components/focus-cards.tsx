@@ -1,16 +1,17 @@
 // components/focus-cards.tsx
 
-"use client";
+"use client"
 
-import Link from "next/link";
-import React, { useState } from "react";
-import { cn } from "@/lib/utils";
+import React, { useState } from "react"
+import Link from "next/link"
+
+import { cn } from "@/lib/utils"
 
 type CardProps = {
-  id: number;
-  title: string;
-  src: string;
-};
+  id: number
+  title: string
+  src: string
+}
 
 const Card = React.memo(
   ({
@@ -19,12 +20,12 @@ const Card = React.memo(
     hovered,
     setHovered,
   }: {
-    card: CardProps;
-    index: number;
-    hovered: number | null;
-    setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+    card: CardProps
+    index: number
+    hovered: number | null
+    setHovered: React.Dispatch<React.SetStateAction<number | null>>
   }) => (
-    <Link href={`/details/${card.id}`} className="block">
+    <Link href={`/catalogo/${card.id}`} className="block">
       <div
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}
@@ -54,12 +55,12 @@ const Card = React.memo(
       </div>
     </Link>
   )
-);
+)
 
-Card.displayName = "Card";
+Card.displayName = "Card"
 
 export function FocusCards({ cards }: { cards: CardProps[] }) {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null)
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto md:px-8 w-full">
@@ -73,5 +74,5 @@ export function FocusCards({ cards }: { cards: CardProps[] }) {
         />
       ))}
     </div>
-  );
+  )
 }

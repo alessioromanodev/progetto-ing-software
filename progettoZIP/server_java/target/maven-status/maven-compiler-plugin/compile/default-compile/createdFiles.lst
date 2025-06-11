@@ -4,8 +4,8 @@ zip/boundary/api/PagamentoApi.class
 zip/entity/RigaOrdine.class
 zip/boundary/api/ConsegnaApi.class
 zip/boundary/api/OrdineApi.class
-zip/entity/Newsletter.class
 zip/database/PagamentoDAO.class
+zip/entity/Newsletter.class
 zip/control/NewsletterController.class
 zip/boundary/ApiServer.class
 zip/control/UtenteController.class
@@ -23,6 +23,6 @@ zip/control/PagamentoController.class
 zip/entity/Consegna.class
 zip/boundary/api/UtenteApi.class
 zip/control/ConsegnaController.class
-zip/entity/Pagamento.class
 zip/database/UtenteDAO.class
+zip/entity/Pagamento.class
 zip/entity/Fumetto.class

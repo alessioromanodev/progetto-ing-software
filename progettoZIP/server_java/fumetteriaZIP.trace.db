@@ -1,4 +1,4 @@
-2025-06-10 16:52:09 jdbc[4]: null
+2025-06-11 12:38:27 jdbc[109]: null
 org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-200]
 	at org.h2.message.DbException.get(DbException.java:205)
 	at org.h2.message.DbException.get(DbException.java:181)
@@ -10,9 +10,9 @@ org.h2.message.DbException: The connection was not closed by the application and
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
 	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
 	at zip.database.DBManager.getConnection(DBManager.java:36)
-	at zip.database.OrdineDAO.create(OrdineDAO.java:64)
-	at zip.control.OrdineController.create(OrdineController.java:32)
-	at zip.boundary.api.OrdineApi.lambda$registerRoutes$4(OrdineApi.java:52)
+	at zip.database.OrdineDAO.findAll(OrdineDAO.java:20)
+	at zip.control.OrdineController.findAll(OrdineController.java:14)
+	at zip.boundary.api.OrdineApi.lambda$registerRoutes$2(OrdineApi.java:34)
 	at spark.RouteImpl$1.handle(RouteImpl.java:72)
 	at spark.http.matching.Routes.execute(Routes.java:61)
 	at spark.http.matching.MatcherFilter.doFilter(MatcherFilter.java:134)
