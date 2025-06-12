@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import zip.database.DBManager;
-import zip.control.NewsletterController;
 import zip.boundary.api.ConsegnaApi;
 import zip.boundary.api.OrdineApi;
 import zip.boundary.api.PagamentoApi;
